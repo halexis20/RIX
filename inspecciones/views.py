@@ -32,17 +32,16 @@ def elemento_list(request):
 
 @login_required
 def elemento_create(request,elemento_id):
-    elemento_padre= get_object_or_404(Elemento,pk=elemento_id)
+    elemento= get_object_or_404(Elemento,pk=elemento_id)
     if request.method=='POST':
         form=ElementoForm(request.POST)
-        
         if form.is_valid():
             form.save()
             return redirect('elemento_list')
     else:
-        form = ElementoForm(initial={'padre': elemento_padre})
+        form = ElementoForm(initial={'padre': elemento})
         form.fields['padre'].widget = forms.HiddenInput()
-    return render(request,'elemento/create2.html',{'form':form,'elemento_padre':elemento_padre})
+    return render(request,'elemento/create2.html',{'form':form,'elemento':elemento})
 
 @login_required
 def elemento_delete(request, elemento_id):

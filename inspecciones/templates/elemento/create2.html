@@ -4,30 +4,22 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="mt-5">Crear Nuevo Elemento en {{ elemento_padre.nombre }}</h1>
-    <form method="post" action="{% url 'elemento_create' elemento_id=elemento_padre.id%}" enctype="multipart/form-data">
+    <h1 class="mt-5">Crear Nuevo Elemento en {{elemento.nombre}}</h1>
+    <form method="post" action="{% url 'elemento_create' elemento_id=elemento.id%}" enctype="multipart/form-data">
         {% csrf_token %}
-        {% if form.non_field_errors %}
+        {% if form.errors %}
         <div class="alert alert-danger" role="alert">
-            {% for error in form.non_field_errors %}
-                {{ error }}<br>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <strong>{{ field|capfirst }}:</strong> {{ error }}<br>
+                {% endfor %}
             {% endfor %}
         </div>
         {% endif %}
-        {% for field in form.visible_fields %}
-        <div class="form-group">
-            {{ field.label_tag }}
-            {{ field }}
-            {% if field.errors %}
-            <div class="alert alert-danger" role="alert">
-                {% for error in field.errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-        {% endfor %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>
+
 {% endblock %}
