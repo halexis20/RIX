@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Permisos</title>
+    <!-- Estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 100px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card-header {
+            background-color: #dc3545;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h3>No Cuentas con los Permisos Necesarios</h3>
+        </div>
+        <div class="card-body">
+            <p>Lo sentimos, no tienes permisos suficientes para acceder a esta página.</p>
+            <p>Por favor, contacta al administrador del sistema para obtener ayuda.</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="btn btn-danger btn-block">Cerrar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

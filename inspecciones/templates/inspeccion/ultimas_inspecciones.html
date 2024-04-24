@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Inspecciones{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Inspecciones</h1>
+    <ul class="list-group mt-3">
+        {% for inspeccion in ultimas_inspecciones %}
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-0">Folio: {{ inspeccion.id }}    -   {{ inspeccion.atributo.nombre}} : {{ inspeccion.fecha|date:"d-m-Y H:i" }}</h5>
+                    <p class="mb-0">VT : {{ inspeccion.vulnerabilidad.nombre }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'inspeccion_pdf' inspeccion_id=inspeccion.id %}" class="btn btn-primary">
+                        <i class="bi bi-file-pdf" style="font-size: 16px;"></i> Ver PDF
+                    </a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+
+
+{% endblock %}

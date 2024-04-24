@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Modos de Falla{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Modos de Falla</h1>
+    <ul class="list-group mt-3">
+        {% for mododefalla in modosdefalla %}
+                {% include 'mododefalla\mododefalla_item.html' with mododefalla=mododefalla %}
+        {% endfor %}
+    </ul>
+    <a href="{% url 'mododefalla_create' %}" class="btn btn-success mt-3">Crear Nuevo MDF</a>
+</div>
+</div>
+
+
+{% endblock %}

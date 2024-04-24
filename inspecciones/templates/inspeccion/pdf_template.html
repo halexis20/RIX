@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles de Inspección - {{ inspeccion.id }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Detalles de Inspección - {{ inspeccion.id }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Fecha:</strong> {{ inspeccion.fecha }}</p>
+                    <p><strong>Inspector:</strong> {{ inspeccion.inspector }}</p>
+                    <p><strong>Ubicación:</strong> {{ inspeccion.atributo }}</p>
+                    <p><strong>Vulnerabilidad:</strong> {{ inspeccion.vulnerabilidad }}</p>
+                    <p><strong>Temperatura:</strong> {{ inspeccion.temperatura }}</p>
+                    <p><strong>Vibración:</strong> {{ inspeccion.vibracion }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Observación:</strong> {{ inspeccion.observacion }}</p>
+                    <p><strong>Aviso:</strong> {{ inspeccion.aviso }}</p>
+                    <p><strong>Modos de Falla:</strong></p>
+                    <ul>
+                        {% for modo in inspeccion.modosdefalla.all %}
+                        <li>{{ modo.nombre }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h4 class="mb-3">Fotos de la Inspección:</h4>
+                <div class="row">
+                    {% for foto in inspeccion.fotos.all %}
+                    <div class="col-md-4 mb-3">
+                        <img src="{{ foto.imagen.url }}" class="img-fluid img-thumbnail" alt="Foto de Inspección">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

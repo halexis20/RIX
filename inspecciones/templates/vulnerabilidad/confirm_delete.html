@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Eliminación{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Confirmar Eliminación</h1>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">¿Estás seguro de que deseas eliminar la siguiente vulnerabilidad?</h5>
+            <p class="card-text">Nombre: {{ vulnerabilidad.nombre }}</p>
+            <p class="card-text">Valor: {{ vulnerabilidad.valor }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a href="{% url 'vulnerabilidad_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

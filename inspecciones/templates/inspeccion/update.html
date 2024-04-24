@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Actualizar Inspección{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Actualizar Inspección</h1>
+    <form method="post" action="{% url 'inspeccion_update' inspeccion_id=inspeccion.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <strong>{{ field|capfirst }}:</strong> {{ error }}<br>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        <!-- Campo para las fotos existentes -->
+        <div class="mt-4">
+            <h2>Fotos existentes:</h2>
+            {% for foto in fotos %}
+            <div class="form-check">
+                <img src="{{ foto.imagen.url }}" class="img-thumbnail" width="200" height="150" alt="Foto">
+                <input type="checkbox" name="eliminar_fotos" value="{{ foto.id }}" class="form-check-input">
+                <label class="form-check-label" for="eliminar_fotos">Eliminar esta foto</label>
+            </div>
+            {% empty %}
+            <p>No hay fotos asociadas a esta inspección.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Campo para cargar nuevas fotos -->
+        <div class="mt-4">
+            <h2>Cargar nuevas fotos:</h2>
+            {{ fotoform.as_p }}
+        </div>
+
+        <!-- Botón para guardar cambios -->
+        <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+    </form>
+</div>
+
+<!-- Incluir Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Incluir jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Incluir Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.select2').select2();
+    });
+    </script>
+
+{% endblock %}

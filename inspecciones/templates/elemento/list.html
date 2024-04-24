@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Elementos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Elementos</h1>
+    <ul class="list-group mt-3">
+        {% for elemento in elementos %}
+            {% if not elemento.padre %} {# Si el elemento no tiene padre, es un elemento raíz #}
+                {% include 'elemento\elemento_item.html' with elemento=elemento %} {# Incluir el template para mostrar el elemento raíz y sus hijos #}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <a href="{% url 'elemento_create' %}" class="btn btn-success mt-3">Crear Nuevo Elemento</a>
+</div>
+</div>
+
+<script>
+    // Agregar función JavaScript para mostrar/ocultar los detalles al hacer clic en el botón
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.toggle-details').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var atributos = document.getElementById(btn.dataset.targetAtributos); // Encuentra la lista de atributos
+                var hijos = document.getElementById(btn.dataset.targetHijos); // Encuentra la lista de hijos
+                
+                if (atributos && hijos) {
+                    atributos.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los atributos
+                    hijos.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los hijos
+                    if (btn.innerText === '+') {
+                        btn.innerText = '-'; // Cambia el texto a "Ocultar" si los detalles se muestran
+                    } else {
+                        btn.innerText = '+'; // Cambia el texto a "Mostrar" si los detalles se ocultan
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}

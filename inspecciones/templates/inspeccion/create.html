@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Inspeccion{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Crear Nueva Inspeccion</h1>
+    <form method="post" action="{% url 'inspeccion_create'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if inspeccionform.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <strong>{{ field|capfirst }}:</strong> {{ error }}<br>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ inspeccionform.non_field_errors }}
+        {{ inspeccionform.as_p }}
+        {{ fotoform.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+<!-- Incluir Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Incluir jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Incluir Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.select2').select2();
+    });
+    </script>
+{% endblock %}
