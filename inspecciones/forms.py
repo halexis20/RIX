@@ -67,8 +67,9 @@ class InspeccionForm(forms.ModelForm):
         model = Inspeccion
         fields = ['fecha', 'inspector', 'atributo', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla']  # Incluir 'fotos' en los campos del formulario
         
+
         widgets = {
-            'fecha': forms.DateTimeInput(attrs={'class': 'form-control','type': 'datetime-local'}),
+            'fecha': forms.DateTimeInput(attrs={'class': 'form-control','type':'datetime-local'}),
             'inspector': forms.Select(attrs={'class': 'form-control'}),
             'atributo': forms.Select(attrs={'class': 'form-control select2'}),
             'vulnerabilidad': forms.Select(attrs={'class': 'form-control'}),

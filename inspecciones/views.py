@@ -5,6 +5,8 @@ from django.http import HttpRequest
 from django.contrib import messages
 from django import forms
 
+from django.utils import timezone
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
@@ -283,14 +285,16 @@ def inspeccion_update(request, inspeccion_id):
 
             return redirect('inspeccion_list')
     else:
-        form = InspeccionForm(instance=inspeccion)
+        inspeccion_fecha_iso8601 = inspeccion.fecha.strftime('%Y-%m-%d %H:%M:%S')
+        form = InspeccionForm(instance=inspeccion,initial={'fecha': inspeccion_fecha_iso8601})
         fotoform = FotoForm()
         # Obtener todas las fotos relacionadas con la inspección existente
         fotos = inspeccion.fotos.all()
         # Puedes agregar esta línea si deseas ordenar los atributos por tag en el formulario
         form.fields['atributo'].queryset = Atributo.objects.all().order_by('tag')
 
-    return render(request, 'inspeccion/update.html', {'form': form, 'inspeccion': inspeccion, 'fotoform': fotoform, 'fotos': fotos})
+
+    return render(request, 'inspeccion/update.html', {'form': form, 'inspeccion': inspeccion, 'fotoform': fotoform, 'fotos': fotos,'inspeccion_fecha_iso8601':inspeccion_fecha_iso8601})
 
 @login_required
 def inspeccion_delete(request,inspeccion_id):
