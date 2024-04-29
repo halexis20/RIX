@@ -39,10 +39,11 @@ class AtributoForm(forms.ModelForm):
 class VulnerabilidadForm(forms.ModelForm):
     class Meta:
         model= Vulnerabilidad
-        fields=['nombre','valor']
+        fields=['nombre','valor','color']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'valor': forms.NumberInput(attrs={'class': 'form-control'}),
+            'color': forms.TextInput(attrs={'class': 'form-control','type':'color'})
         }
 
 class InspectorForm(forms.ModelForm):
@@ -85,5 +86,5 @@ class FotoForm(forms.Form):
 
     imagenes = forms.ImageField(required=False)
     widgets = {
-            'imagenes': forms.ClearableFileInput(attrs={'class': 'form-control-file','multiple': True}),
+            'imagenes': forms.ClearableFileInput(attrs={'class': 'form-control','multiple':''}),
         }

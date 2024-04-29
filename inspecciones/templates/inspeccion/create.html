@@ -18,7 +18,12 @@
         {% endif %}
         {{ inspeccionform.non_field_errors }}
         {{ inspeccionform.as_p }}
-        {{ fotoform.as_p }}
+        <div id="imagenes-inputs">
+            {{ fotoform.imagenes.label_tag }}
+            <br>
+            <input type="file" name="imagenes" id="id_imagenes" class="form-control" multiple="">
+            <br>
+        </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>
@@ -37,4 +42,5 @@
         $('.select2').select2();
     });
     </script>
+
 {% endblock %}

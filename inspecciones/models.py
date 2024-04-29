@@ -51,6 +51,7 @@ class Atributo(models.Model):
 
         return full_name
     
+    full_name = property(_get_full_name)
 
 
 class Inspector(models.Model):
@@ -63,6 +64,7 @@ class Inspector(models.Model):
 class Vulnerabilidad(models.Model):
     nombre=models.CharField(max_length=80,unique=True)
     valor=models.IntegerField()
+    color = models.CharField(max_length=7, default='#000000')  # Campo para almacenar el código hexadecimal del color
 
     def __str__(self) -> str:
         return self.nombre
