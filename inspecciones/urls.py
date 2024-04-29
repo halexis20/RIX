@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,atributo_create,atributo_update,atributo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos
+from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,atributo_create,atributo_update,atributo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,dashboard
 from django.contrib.auth.views import LoginView,LogoutView
 urlpatterns=[
     path('elemento/<int:elemento_id>/create',elemento_create,name='elemento_create'),
@@ -30,5 +30,6 @@ urlpatterns=[
     path('inspeccion/ultimas_inspecciones',ultimas_inspecciones,name='ultimas_inspecciones'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',custom_logout,name='logout'),
-    path('sinpermisos',sin_permisos,name='sinpermisos')
+    path('sinpermisos',sin_permisos,name='sinpermisos'),
+    path('dashboard',dashboard,name='dashboard')
 ]

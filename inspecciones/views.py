@@ -12,6 +12,8 @@ from django.http import HttpResponseForbidden
 
 from django.db.models import Max
 
+from django.db.models import Count, Avg
+
 # Create your views here.
 
 def sin_permisos(request):
@@ -321,3 +323,36 @@ def ultimas_inspecciones(request):
 
     return render(request, 'inspeccion/ultimas_inspecciones.html', {'ultimas_inspecciones': ultimas_inspecciones})
 
+@login_required
+def dashboard(request):
+    # Número total de inspecciones realizadas
+    total_inspecciones = Inspeccion.objects.count()
+
+    # Distribución de inspecciones por inspector
+    inspecciones_por_inspector = Inspeccion.objects.values('inspector__nombre').annotate(total=Count('id'))
+
+    # Distribución de inspecciones por elemento y atributo
+    inspecciones_por_elemento_atributo = Inspeccion.objects.values('atributo__elemento__nombre', 'atributo__nombre').annotate(total=Count('id'))
+
+    # Temperatura y vibración promedio por atributo
+    # Temperatura y vibración promedio por atributo
+    promedio_temperatura_por_atributo = (
+        Inspeccion.objects.values('atributo__nombre')
+        .annotate(promedio_temperatura=Avg('temperatura'))
+    )
+    promedio_vibracion_por_atributo = (
+        Inspeccion.objects.values('atributo__nombre')
+        .annotate(promedio_vibracion=Avg('vibracion'))
+    )
+
+    # Modos de falla más comunes
+    modos_de_falla_comunes = ModoDeFalla.objects.annotate(total=Count('inspecciones')).order_by('-total')[:5]
+
+    return render(request, 'dashboard/dashboard.html', {
+        'total_inspecciones': total_inspecciones,
+        'inspecciones_por_inspector': inspecciones_por_inspector,
+        'inspecciones_por_elemento_atributo': inspecciones_por_elemento_atributo,
+        'promedio_temperatura_por_atributo': promedio_temperatura_por_atributo,
+        'promedio_vibracion_por_atributo': promedio_vibracion_por_atributo,
+        'modos_de_falla_comunes': modos_de_falla_comunes
+    })
