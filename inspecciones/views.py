@@ -356,3 +356,7 @@ def dashboard(request):
         'promedio_vibracion_por_atributo': promedio_vibracion_por_atributo,
         'modos_de_falla_comunes': modos_de_falla_comunes
     })
+
+
+def error_404(request, exception):
+    return render(request, 'sinpermisos.html', status=404)
