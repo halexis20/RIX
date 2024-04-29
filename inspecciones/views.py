@@ -36,212 +36,269 @@ def elemento_list(request):
 
 @login_required
 def elemento_create(request,elemento_id):
-    elemento= get_object_or_404(Elemento,pk=elemento_id)
-    if request.method=='POST':
-        form=ElementoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('elemento_list')
+    if request.user.userprofile.role == 'admin':
+        elemento= get_object_or_404(Elemento,pk=elemento_id)
+        if request.method=='POST':
+            form=ElementoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+        else:
+            form = ElementoForm(initial={'padre': elemento})
+            form.fields['padre'].widget = forms.HiddenInput()
+        return render(request,'elemento/create2.html',{'form':form,'elemento':elemento})
     else:
-        form = ElementoForm(initial={'padre': elemento})
-        form.fields['padre'].widget = forms.HiddenInput()
-    return render(request,'elemento/create2.html',{'form':form,'elemento':elemento})
+        return redirect('sinpermisos')
 
 @login_required
 def elemento_delete(request, elemento_id):
     # Obtener el elemento a eliminar
-    elemento = get_object_or_404(Elemento, pk=elemento_id)
+    if request.user.userprofile.role == 'admin':
+        elemento = get_object_or_404(Elemento, pk=elemento_id)
 
-    if request.method == 'POST':
-        elemento.delete()
-        return redirect('elemento_list')
+        if request.method == 'POST':
+            elemento.delete()
+            return redirect('elemento_list')
+        else:
+            return render(request, 'elemento/confirm_delete.html', {'elemento': elemento})
     else:
-        return render(request, 'elemento/confirm_delete.html', {'elemento': elemento})
+        return redirect('sinpermisos')
 
 @login_required
 def elemento_create_base(request):
-    elementos=Elemento.objects.all()
-    if request.method=='POST':
-        form=ElementoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('elemento_list')
+    if request.user.userprofile.role == 'admin':
+        elementos=Elemento.objects.all()
+        if request.method=='POST':
+            form=ElementoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+        else:
+            form=ElementoForm()
+        
+        return render(request,'elemento/create.html',{'form':form,'elementos':elementos})
     else:
-        form=ElementoForm()
-    
-    return render(request,'elemento/create.html',{'form':form,'elementos':elementos})
+        return redirect('sinpermisos')
 
 @login_required
 def elemento_update(request,elemento_id):
-    elemento=get_object_or_404(Elemento,pk=elemento_id)
-    if request.method=='POST':
-        form=ElementoForm(request.POST,instance=elemento)
-        if form.is_valid():
-            form.save()
-            return redirect('elemento_list')
-        
-    else:
-        form=ElementoForm(instance=elemento)
+    if request.user.userprofile.role == 'admin':
+        elemento=get_object_or_404(Elemento,pk=elemento_id)
+        if request.method=='POST':
+            form=ElementoForm(request.POST,instance=elemento)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+            
+        else:
+            form=ElementoForm(instance=elemento)
 
-    return render(request,'elemento/update.html',{'form':form,'elemento':elemento})
+        return render(request,'elemento/update.html',{'form':form,'elemento':elemento})
+    else:
+        return redirect('sinpermisos')
 
 @login_required
 def atributo_create(request,elemento_id):
-    elemento= get_object_or_404(Elemento,pk=elemento_id)
-    if request.method=='POST':
-        form=AtributoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('elemento_list')
+    if request.user.userprofile.role == 'admin':
+        elemento= get_object_or_404(Elemento,pk=elemento_id)
+        if request.method=='POST':
+            form=AtributoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+        else:
+            form = AtributoForm(initial={'elemento': elemento})
+            form.fields['elemento'].widget = forms.HiddenInput()
+        return render(request,'atributo/create.html',{'form':form,'elemento':elemento})
     else:
-        form = AtributoForm(initial={'elemento': elemento})
-        form.fields['elemento'].widget = forms.HiddenInput()
-    return render(request,'atributo/create.html',{'form':form,'elemento':elemento})
+        return redirect('sinpermisos')
 
 @login_required
 def atributo_update(request,atributo_id):
-    atributo=get_object_or_404(Atributo,pk=atributo_id)
-    if request.method=='POST':
-        form=AtributoForm(request.POST,instance=atributo)
-        if form.is_valid():
-            form.save()
-            return redirect('elemento_list')
-        
-    else:
-        form=AtributoForm(instance=atributo)
+    if request.user.userprofile.role == 'admin':
+        atributo=get_object_or_404(Atributo,pk=atributo_id)
+        if request.method=='POST':
+            form=AtributoForm(request.POST,instance=atributo)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+            
+        else:
+            form=AtributoForm(instance=atributo)
 
-    return render(request,'atributo/update.html',{'form':form,'atributo':atributo})
+        return render(request,'atributo/update.html',{'form':form,'atributo':atributo})
+    else:
+        return redirect('sinpermisos')
 
 @login_required
 def atributo_delete(request, atributo_id):
-    # Obtener el elemento a eliminar
-    atributo = get_object_or_404(Atributo, pk=atributo_id)
+    if request.user.userprofile.role == 'admin':
+        # Obtener el elemento a eliminar
+        atributo = get_object_or_404(Atributo, pk=atributo_id)
 
-    if request.method == 'POST':
-        atributo.delete()
-        return redirect('elemento_list')
-    else:
-        return render(request, 'atributo/confirm_delete.html', {'atributo': atributo})
+        if request.method == 'POST':
+            atributo.delete()
+            return redirect('elemento_list')
+        else:
+            return render(request, 'atributo/confirm_delete.html', {'atributo': atributo})
+    return redirect('sinpermisos')
     
 @login_required
 def vulnerabilidad_list(request):
-    vulnerabilidades=Vulnerabilidad.objects.all().order_by('valor')
-    return render(request,'vulnerabilidad/list.html',{'vulnerabilidades':vulnerabilidades})
+    if request.user.userprofile.role == 'admin':
+        vulnerabilidades=Vulnerabilidad.objects.all().order_by('valor')
+        return render(request,'vulnerabilidad/list.html',{'vulnerabilidades':vulnerabilidades})
+    else:
+        return redirect('sinpermisos')
 
 @login_required
 def vulnerabilidad_create(request):
-    if request.method=='POST':
-        form=VulnerabilidadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('vulnerabilidad_list')      
+    if request.user.userprofile.role == 'admin':
+        if request.method=='POST':
+            form=VulnerabilidadForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('vulnerabilidad_list')      
+        else:
+            form=VulnerabilidadForm()
+            return render(request,'vulnerabilidad/create.html',{'form':form})
     else:
-        form=VulnerabilidadForm()
-        return render(request,'vulnerabilidad/create.html',{'form':form})
+        return redirect('sinpermisos')
     
 
 @login_required
 def vulnerabilidad_update(request,vulnerabilidad_id):
-    vulnerabilidad=get_object_or_404(Vulnerabilidad,pk=vulnerabilidad_id)
-    if request.method=='POST':
-        form = VulnerabilidadForm(request.POST,instance=vulnerabilidad)
-        if form.is_valid():
-            form.save()
-            return redirect('vulnerabilidad_list')
+    if request.user.userprofile.role == 'admin':
+        vulnerabilidad=get_object_or_404(Vulnerabilidad,pk=vulnerabilidad_id)
+        if request.method=='POST':
+            form = VulnerabilidadForm(request.POST,instance=vulnerabilidad)
+            if form.is_valid():
+                form.save()
+                return redirect('vulnerabilidad_list')
+        else:
+            form=VulnerabilidadForm(instance=vulnerabilidad)
+            return render(request,'vulnerabilidad/update.html',{'form':form,'vulnerabilidad':vulnerabilidad})
     else:
-        form=VulnerabilidadForm(instance=vulnerabilidad)
-        return render(request,'vulnerabilidad/update.html',{'form':form,'vulnerabilidad':vulnerabilidad})
+        return redirect('sinpermisos')
 
 
 @login_required
 def vulnerabilidad_delete(request,vulnerabilidad_id):
-    vulnerabilidad=get_object_or_404(Vulnerabilidad,pk=vulnerabilidad_id)
-    if request.method=='POST':
-        vulnerabilidad.delete()
-        return redirect('vulnerabilidad_list')
+    if request.user.userprofile.role == 'admin':
+        vulnerabilidad=get_object_or_404(Vulnerabilidad,pk=vulnerabilidad_id)
+        if request.method=='POST':
+            vulnerabilidad.delete()
+            return redirect('vulnerabilidad_list')
+        else:
+            return render(request,'vulnerabilidad/confirm_delete.html',{'vulnerabilidad':vulnerabilidad})
     else:
-        return render(request,'vulnerabilidad/confirm_delete.html',{'vulnerabilidad':vulnerabilidad})
+        return redirect('sinpermisos')
 
 @login_required
 def inspector_list(request):
-    inspectores=Inspector.objects.all()
-    return render(request,'inspector/list.html',{'inspectores':inspectores})
+    if request.user.userprofile.role == 'admin':
+        inspectores=Inspector.objects.all()
+        return render(request,'inspector/list.html',{'inspectores':inspectores})
+    else:
+        return redirect('sinpermisos')
 
 @login_required
 def inspector_create(request):
-    if request.method == 'POST':
-        form = InspectorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('inspector_list')
+    if request.user.userprofile.role == 'admin':
+        if request.method == 'POST':
+            form = InspectorForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('inspector_list')
+            else:
+                errors = form.errors.values()
+                return render(request, 'inspector/create.html', {'form': form,'errors':errors})
         else:
-            errors = form.errors.values()
-            return render(request, 'inspector/create.html', {'form': form,'errors':errors})
+            form = InspectorForm()
+            return render(request, 'inspector/create.html', {'form': form})
     else:
-        form = InspectorForm()
-        return render(request, 'inspector/create.html', {'form': form})
+        return redirect('sinpermisos')
     
 @login_required
 def inspector_update(request,inspector_id):
-    inspector=get_object_or_404(Inspector,pk=inspector_id)
-    if request.method=='POST':
-        form=InspectorForm(request.POST,instance=inspector)
-        if form.is_valid():
-            form.save()
-            return redirect('inspector_list')
+    if request.user.userprofile.role == 'admin':
+        inspector=get_object_or_404(Inspector,pk=inspector_id)
+        if request.method=='POST':
+            form=InspectorForm(request.POST,instance=inspector)
+            if form.is_valid():
+                form.save()
+                return redirect('inspector_list')
+        else:
+            form=InspectorForm(instance=inspector)
+            return render(request,'inspector/update.html',{'form':form,'inspector':inspector})
     else:
-        form=InspectorForm(instance=inspector)
-        return render(request,'inspector/update.html',{'form':form,'inspector':inspector})
+        return redirect('sinpermisos')
     
 @login_required
 def inspector_delete(request,inspector_id):
-    inspector=get_object_or_404(Inspector,pk=inspector_id)
-    if request.method=='POST':
-        inspector.delete()
-        return redirect('inspector_list')
+    if request.user.userprofile.role == 'admin':
+        inspector=get_object_or_404(Inspector,pk=inspector_id)
+        if request.method=='POST':
+            inspector.delete()
+            return redirect('inspector_list')
+        else:
+            return render(request,'inspector/confirm_delete.html',{'inspector':inspector})
     else:
-        return render(request,'inspector/confirm_delete.html',{'inspector':inspector})
+        return redirect('sinpermisos')
     
 @login_required
 def mododefalla_list(request):
-    modosdefalla=ModoDeFalla.objects.all().order_by('nombre')
-    return render(request,'mododefalla/list.html',{'modosdefalla':modosdefalla})
+    if request.user.userprofile.role == 'admin':
+        modosdefalla=ModoDeFalla.objects.all().order_by('nombre')
+        return render(request,'mododefalla/list.html',{'modosdefalla':modosdefalla})
+    else:
+        return redirect('sinpermisos')
 
 @login_required
 def mododefalla_create(request):
-    if request.method=='POST':
-        form=ModoDeFallaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('mododefalla_list')
-        else:
+    if request.user.userprofile.role == 'admin':
+        if request.method=='POST':
             form=ModoDeFallaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('mododefalla_list')
+            else:
+                form=ModoDeFallaForm(request.POST)
+                return render(request,'mododefalla/create.html',{'form':form})
+        else:
+            form=ModoDeFallaForm()
             return render(request,'mododefalla/create.html',{'form':form})
     else:
-        form=ModoDeFallaForm()
-        return render(request,'mododefalla/create.html',{'form':form})
+        return redirect('sinpermisos')
     
 @login_required
 def mododefalla_update(request,mododefalla_id):
-    mododefalla=get_object_or_404(ModoDeFalla,pk=mododefalla_id)
-    if request.method=='POST':
-        form=ModoDeFallaForm(request.POST,instance=mododefalla)
-        if form.is_valid():
-            form.save()
-            return redirect('mododefalla_list')
-        
+    if request.user.userprofile.role == 'admin':
+        mododefalla=get_object_or_404(ModoDeFalla,pk=mododefalla_id)
+        if request.method=='POST':
+            form=ModoDeFallaForm(request.POST,instance=mododefalla)
+            if form.is_valid():
+                form.save()
+                return redirect('mododefalla_list')
+            
+        else:
+            form=ModoDeFallaForm(instance=mododefalla)
+            return render(request,'mododefalla/update.html',{'form':form,'mododefalla':mododefalla})
     else:
-        form=ModoDeFallaForm(instance=mododefalla)
-        return render(request,'mododefalla/update.html',{'form':form,'mododefalla':mododefalla})
+        return redirect('sinpermisos')
     
 @login_required
 def mododefalla_delete(request,mododefalla_id):
-    mododefalla=get_object_or_404(ModoDeFalla,pk=mododefalla_id)
-    if request.method=='POST':
-        mododefalla.delete()
-        return redirect('mododefalla_list')
+    if request.user.userprofile.role == 'admin':
+        mododefalla=get_object_or_404(ModoDeFalla,pk=mododefalla_id)
+        if request.method=='POST':
+            mododefalla.delete()
+            return redirect('mododefalla_list')
+        else:
+            return render(request,'mododefalla/confirm_delete.html',{'mododefalla':mododefalla})
     else:
-        return render(request,'mododefalla/confirm_delete.html',{'mododefalla':mododefalla})
+        return redirect('sinpermisos')    
+    
     
 @login_required
 def inspeccion_list(request):
@@ -300,12 +357,15 @@ def inspeccion_update(request, inspeccion_id):
 
 @login_required
 def inspeccion_delete(request,inspeccion_id):
-    inspeccion=get_object_or_404(Inspeccion,pk=inspeccion_id)
-    if request.method=='POST':
-        inspeccion.delete()
-        return redirect('inspeccion_list')
+    if request.user.userprofile.role == 'admin':
+        inspeccion=get_object_or_404(Inspeccion,pk=inspeccion_id)
+        if request.method=='POST':
+            inspeccion.delete()
+            return redirect('inspeccion_list')
+        else:
+            return render(request,'inspeccion/confirm_delete.html',{'inspeccion':inspeccion})
     else:
-        return render(request,'inspeccion/confirm_delete.html',{'inspeccion':inspeccion})
+        return redirect('sinpermisos')
 
 @login_required
 def inspeccion_pdf(request, inspeccion_id):

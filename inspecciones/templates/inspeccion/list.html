@@ -41,9 +41,11 @@
                             <path d="M13.646 0.354a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.828 0zM12.854 1.146l2 2L4 14H2v-2l9.854-9.854z"/>
                         </svg>
                     </a>
+                    {% if request.user.userprofile.role == 'admin' %}
                     <a href="{% url 'inspeccion_delete' inspeccion_id=inspeccion.id %}" class="btn btn-danger btn-sm">
                         <i class="bi bi-trash"></i>
                     </a>
+                    {% endif %}
                     <a href="{% url 'inspeccion_pdf' inspeccion_id=inspeccion.id %}" class="btn btn-primary btn-sm">
                         <i class="bi bi-file-pdf"></i> Ver PDF
                     </a>
