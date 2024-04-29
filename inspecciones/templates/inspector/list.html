@@ -7,7 +7,7 @@
     <h1 class="mt-5">Inspectores</h1>
     <ul class="list-group mt-3">
         {% for inspector in inspectores %}
-                {% include 'inspector\inspector_item.html' with inspector=inspector %}
+                {% include 'inspector/inspector_item.html' with inspector=inspector %}
         {% endfor %}
     </ul>
     <a href="{% url 'inspector_create' %}" class="btn btn-success mt-3">Crear Nuevo Inspector</a>

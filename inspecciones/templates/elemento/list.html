@@ -8,7 +8,7 @@
     <ul class="list-group mt-3">
         {% for elemento in elementos %}
             {% if not elemento.padre %} {# Si el elemento no tiene padre, es un elemento raíz #}
-                {% include 'elemento\elemento_item.html' with elemento=elemento %} {# Incluir el template para mostrar el elemento raíz y sus hijos #}
+                {% include 'elemento/elemento_item.html' with elemento=elemento %} {# Incluir el template para mostrar el elemento raíz y sus hijos #}
             {% endif %}
         {% endfor %}
     </ul>
