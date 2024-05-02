@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de Vulnerabilidades{% endblock %}
+{% block title %}Lista de Probabilidades{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="mt-5">Vulnerablilidades</h1>
+    <h1 class="mt-5">Probabilidades</h1>
     <ul class="list-group mt-3">
         {% for vulnerabilidad in vulnerabilidades %}
                 {% include 'vulnerabilidad/vulnerabilidad_item.html' with vulnerabilidad=vulnerabilidad %}
         {% endfor %}
     </ul>
-    <a href="{% url 'vulnerabilidad_create' %}" class="btn btn-success mt-3">Crear Nueva Vulnerabilidad</a>
+    <a href="{% url 'vulnerabilidad_create' %}" class="btn btn-success mt-3">Crear Nueva Probabilidad</a>
 </div>
 </div>
 

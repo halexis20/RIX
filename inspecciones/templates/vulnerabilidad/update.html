@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Editar Vulnerabilidad{% endblock %}
+{% block title %}Editar Probabilidad{% endblock %}
 
 {% block content %}
 <div class="container"></div>
-<h1 class="mt-5">Actualizar vulnerabilidad {{ vulnerabilidad.nombre }}</h1>
+<h1 class="mt-5">Actualizar probabilidad {{ vulnerabilidad.nombre }}</h1>
 <form method="post" action="{% url 'vulnerabilidad_update' vulnerabilidad_id=vulnerabilidad.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
