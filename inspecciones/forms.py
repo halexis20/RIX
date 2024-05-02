@@ -104,6 +104,7 @@ class InspeccionForm(forms.ModelForm):
         self.fields['fechaplaneada'].required = False
         self.fields['aviso'].label="Work Order"
         self.fields['fechaplaneada'].label="Fecha Planeada"
+        self.fields['fuentedevulnerabilidad'].label="Fuente de Vulnerabilidad"
 
 
 class FotoForm(forms.Form):

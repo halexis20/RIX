@@ -15,6 +15,7 @@
 {% block content %}
 <div class="container">
     <h1 class="mt-5">Últimas Inspecciones</h1>
+    <div class="d-flex justify-content-center">
     <table class="table" id="miTabla">
         <thead>
             <tr>
@@ -24,7 +25,7 @@
                 <th>Ruta Base</th>
                 <th>Equipo</th>
                 <th>Componente</th>
-                <th>Notificacion</th>
+                <th>Notificación</th>
                 <th>Work Order</th>
                 <th>Probabilidad</th>
                 <th>Condición</th>
@@ -39,13 +40,13 @@
             {% for inspeccion in ultimas_inspecciones %}
             <tr>
                 <td>{{ inspeccion.id }}</td>
-                <td>{{inspeccion.fuentedevulnerabilidad}}</td>
+                <td>{{ inspeccion.fuentedevulnerabilidad }}</td>
                 <td>{{ inspeccion.fecha|date:"d-m-Y H:i" }}</td>
                 <td>{{ inspeccion.componente.equipo.short_name }}</td>
-                <td>{{inspeccion.componente.equipo.nombre}}</td>
+                <td>{{ inspeccion.componente.equipo.nombre }}</td>
                 <td>{{ inspeccion.componente.nombre }}</td>
-                <td>{{inspeccion.notificacion}}</td>
-                <td>{{inspeccion.aviso}}</td>
+                <td>{{ inspeccion.notificacion }}</td>
+                <td>{{ inspeccion.aviso }}</td>
                 
                 <td>
                     <div style="width: 30px; height: 30px; background-color: {{ inspeccion.vulnerabilidad.color }}; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: rgba(255, 255, 255, 0.1);" title="{{ inspeccion.vulnerabilidad.nombre }}">
@@ -53,11 +54,11 @@
                     </div>
                 </td>
 
-                <td>{{inspeccion.observacion}}</td>
-                <td>{{inspeccion.recomendacion}}</td>
+                <td>{{ inspeccion.observacion }}</td>
+                <td>{{ inspeccion.recomendacion }}</td>
                 <td>{{ inspeccion.fechaplaneada|date:"d-m-Y" }}</td>
-                <td>{{inspeccion.comentarios}}</td>
-                <td>{{inspeccion.realizado}}</td>
+                <td>{{ inspeccion.comentarios }}</td>
+                <td>{{ inspeccion.realizado }}</td>
 
                 <td>
                     <a href="{% url 'inspeccion_pdf' inspeccion_id=inspeccion.id %}" class="btn btn-primary btn-sm">
@@ -68,6 +69,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 </div>
 {% endblock %}
 

@@ -10,56 +10,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.5/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.js"></script>
 
+
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="mt-5">Inspecciones</h1>
+
+    <h1 class="mt-5 ">Inspecciones</h1>
+
+    <div class="d-flex justify-content-center">
     <table class="table" id="miTabla">
         <thead>
             <tr>
-                <th>Folio</th>
-                <th>Fuente</th>
-                <th>Fecha</th>
-                <th>Ruta Base</th>
-                <th>Equipo</th>
-                <th>Componente</th>
-                <th>Notificacion</th>
-                <th>Work Order</th>
-                <th>Probabilidad</th>
-                <th>Condición</th>
-                <th>Recomendación</th>
-                <th>Fecha Planeada</th>
-                <th>Comentario</th>
-                <th>¿Realizado?</th>
-                <th>Acciones</th>
+                <th >Folio</th>
+                <th >Fuente</th>
+                <th >Fecha</th>
+                <th >Ruta Base</th>
+                <th >Equipo</th>
+                <th >Componente</th>
+                <th >Notificación</th>
+                <th >Work Order</th>
+                <th >Probabilidad</th>
+                <th >Condición</th>
+                <th >Recomendación</th>
+                <th >Fecha Planeada</th>
+                <th >Comentario</th>
+                <th >¿Realizado?</th>
+                <th >Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for inspeccion in inspecciones %}
             <tr>
-                <td>{{ inspeccion.id }}</td>
-                <td>{{ inspeccion.fuentedevulnerabilidad}}</td>
-                <td>{{ inspeccion.fecha|date:"d-m-Y H:i" }}</td>
-                <td>{{ inspeccion.componente.equipo.short_name }}</td>
-                <td>{{inspeccion.componente.equipo.nombre}}</td>
-                <td>{{ inspeccion.componente.nombre }}</td>
-                <td>{{inspeccion.notificacion}}</td>
-                <td>{{inspeccion.aviso}}</td>
+                <td >{{ inspeccion.id }}</td>
+                <td >{{ inspeccion.fuentedevulnerabilidad}}</td>
+                <td >{{ inspeccion.fecha|date:"d-m-Y H:i" }}</td>
+                <td >{{ inspeccion.componente.equipo.short_name }}</td>
+                <td >{{ inspeccion.componente.equipo.nombre }}</td>
+                <td >{{ inspeccion.componente.nombre }}</td>
+                <td >{{inspeccion.notificacion}}</td>
+                <td >{{inspeccion.aviso}}</td>
                 
-                <td>
+                <td >
                     <div style="width: 30px; height: 30px; background-color: {{ inspeccion.vulnerabilidad.color }}; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: rgba(255, 255, 255, 0.1);" title="{{ inspeccion.vulnerabilidad.nombre }}">
                         {{ inspeccion.vulnerabilidad.valor }}
                     </div>
                 </td>
 
-                <td>{{inspeccion.observacion}}</td>
-                <td>{{inspeccion.recomendacion}}</td>
-                <td>{{ inspeccion.fechaplaneada|date:"d-m-Y" }}</td>
-                <td>{{inspeccion.comentarios}}</td>
-                <td>{{inspeccion.realizado}}</td>
+                <td >{{ inspeccion.observacion }}</td>
+                <td >{{ inspeccion.recomendacion }}</td>
+                <td >{{ inspeccion.fechaplaneada|date:"d-m-Y" }}</td>
+                <td >{{ inspeccion.comentarios }}</td>
+                <td >{{inspeccion.realizado}}</td>
 
-                <td>
+                <td >
                     <a href="{% url 'inspeccion_update' inspeccion_id=inspeccion.id %}" class="btn btn-warning btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                             <path d="M13.646 0.354a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.828 0zM12.854 1.146l2 2L4 14H2v-2l9.854-9.854z"/>
@@ -78,6 +82,8 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
+    </div>
     <a href="{% url 'inspeccion_create' %}" class="btn btn-success mt-3">Crear Nueva Inspeccion</a>
 </div>
 {% endblock %}
