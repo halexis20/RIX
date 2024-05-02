@@ -79,6 +79,7 @@ class Componente(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     equipo=models.ForeignKey(Equipo,on_delete=models.CASCADE,related_name='componentes')
+    codigosap=models.CharField(max_length=250,blank=True)
 
 
     def __str__(self):

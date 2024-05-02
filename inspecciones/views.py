@@ -487,3 +487,9 @@ def fuentedevulnerabilidad_delete(request,fuentedevulnerabilidad_id):
             return render(request,'fuentedevulnerabilidad/confirm_delete.html',{'fuentedevulnerabilidad':fuentedevulnerabilidad})
     else:
         return redirect('sinpermisos')  
+    
+
+@login_required
+def componente_list(request):
+    componentes = Componente.objects.all()
+    return render(request, 'componente/list.html', {'componentes': componentes})

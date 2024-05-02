@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update,fuentedevulnerabilidad_create,fuentedevulnerabilidad_list,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete
+from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update,fuentedevulnerabilidad_create,fuentedevulnerabilidad_list,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete,componente_list
 from django.contrib.auth.views import LoginView,LogoutView
 from django.conf.urls import handler404
 from django.shortcuts import render
@@ -41,4 +41,5 @@ urlpatterns=[
     path('fuentedevulnerabilidad/create',fuentedevulnerabilidad_create,name='fuentedevulnerabilidad_create'),
     path('fuentedevulnerabilidad/<int:fuentedevulnerabilidad_id>/update',fuentedevulnerabilidad_update,name='fuentedevulnerabilidad_update'),
     path('fuentedevulnerabilidad/<int:fuentedevulnerabilidad_id>/delete',fuentedevulnerabilidad_delete,name='fuentedevulnerabilidad_delete'),
+    path('componente',componente_list,name='componente_list')
 ]

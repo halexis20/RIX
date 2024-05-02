@@ -39,12 +39,18 @@ class EquipoForm(forms.ModelForm):
 class ComponenteForm(forms.ModelForm):
     class Meta:
         model= Componente
-        fields=['nombre','descripcion','equipo']
+        fields=['nombre','descripcion','equipo','codigosap']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
             'equipo': forms.Select(attrs={'class': 'form-control select2'}),
+            'codigosap': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['codigosap'].required = False
+        self.fields['codigosap'].label="Código SAP"
 
 class VulnerabilidadForm(forms.ModelForm):
     class Meta:
