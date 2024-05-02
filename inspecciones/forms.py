@@ -95,10 +95,14 @@ class InspeccionForm(forms.ModelForm):
             'comentarios': forms.Textarea(attrs={'class': 'form-control'}),
             'realizado': forms.Select(attrs={'class': 'form-control'},choices=[('Si', 'Sí'), ('No', 'No')]),
         }
+
+        
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fechaplaneada'].required = False
+        self.fields['aviso'].label="Work Order"
+        self.fields['fechaplaneada'].label="Fecha Planeada"
 
 
 class FotoForm(forms.Form):
