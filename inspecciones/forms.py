@@ -111,6 +111,7 @@ class InspeccionForm(forms.ModelForm):
         self.fields['aviso'].label="Work Order"
         self.fields['fechaplaneada'].label="Fecha Planeada"
         self.fields['fuentedevulnerabilidad'].label="Fuente de Vulnerabilidad"
+        self.fields['vulnerabilidad'].label="Probabilidad"
 
 
 class FotoForm(forms.Form):
