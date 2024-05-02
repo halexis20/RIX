@@ -1,6 +1,10 @@
 from django.contrib import admin
-from inspecciones.models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,UserProfile,Componente
+from inspecciones.models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,UserProfile,Componente,FuenteDeVulnerabilidad
 # Register your models here.
+
+@admin.register(FuenteDeVulnerabilidad)
+class FuenteDeVulnerabilidadAdmin(admin.ModelAdmin):
+    list_display=['id','nombre']
 
 @admin.register(Componente)
 class ComponenteAdmin(admin.ModelAdmin):

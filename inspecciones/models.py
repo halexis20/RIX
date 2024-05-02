@@ -110,7 +110,15 @@ class ModoDeFalla(models.Model):
     def __str__(self):
         return self.nombre
 
+
+class FuenteDeVulnerabilidad(models.Model):
+    nombre=models.CharField(max_length=50,unique=True)
+
+    def __str__(self):
+        return self.nombre
+
 class Inspeccion(models.Model):
+    fuentedevulnerabilidad=models.ForeignKey(FuenteDeVulnerabilidad,on_delete=models.CASCADE,related_name='inspecciones')
     fecha=models.DateTimeField()
     inspector=models.ForeignKey(Inspector,on_delete=models.CASCADE,related_name='inspecciones')
     componente=models.ForeignKey(Componente,on_delete=models.CASCADE,related_name='inspecciones')
@@ -143,3 +151,5 @@ class Foto(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+

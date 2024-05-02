@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Fuente{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Crear Nueva Fuente</h1>
+    <form method="post" action="{% url 'fuentedevulnerabilidad_create'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <strong>{{ field|capfirst }}:</strong> {{ error }}<br>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ form.non_field_errors }} 
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock %}

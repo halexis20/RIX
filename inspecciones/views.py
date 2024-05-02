@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente
-from .forms import ElementoForm,EquipoForm,VulnerabilidadForm,InspectorForm,ModoDeFallaForm,InspeccionForm,FotoForm,ComponenteForm
+from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente,FuenteDeVulnerabilidad
+from .forms import ElementoForm,EquipoForm,VulnerabilidadForm,InspectorForm,ModoDeFallaForm,InspeccionForm,FotoForm,ComponenteForm,FuenteDeVulnerabilidadForm
 from django.http import HttpRequest
 from django.contrib import messages
 from django import forms
@@ -433,3 +433,57 @@ def ultimas_inspecciones(request):
 
 def error_404(request, exception):
     return render(request, 'sinpermisos.html', status=404)
+
+
+@login_required
+def fuentedevulnerabilidad_list(request):
+    if request.user.userprofile.role == 'admin':
+        fuentesdevulnerabilidad=FuenteDeVulnerabilidad.objects.all()
+        return render(request,'fuentedevulnerabilidad/list.html',{'fuentesdevulnerabilidad':fuentesdevulnerabilidad})
+    else:
+        return redirect('sinpermisos')
+
+@login_required
+def fuentedevulnerabilidad_create(request):
+    if request.user.userprofile.role == 'admin':
+        if request.method=='POST':
+            form=FuenteDeVulnerabilidadForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('fuentedevulnerabilidad_list')
+            else:
+                form=FuenteDeVulnerabilidadForm(request.POST)
+                return render(request,'fuentedevulnerabilidad/create.html',{'form':form})
+        else:
+            form=FuenteDeVulnerabilidadForm()
+            return render(request,'fuentedevulnerabilidad/create.html',{'form':form})
+    else:
+        return redirect('sinpermisos')
+    
+@login_required
+def fuentedevulnerabilidad_update(request,fuentedevulnerabilidad_id):
+    if request.user.userprofile.role == 'admin':
+        fuentedevulnerabilidad=get_object_or_404(FuenteDeVulnerabilidad,pk=fuentedevulnerabilidad_id)
+        if request.method=='POST':
+            form=FuenteDeVulnerabilidadForm(request.POST,instance=fuentedevulnerabilidad)
+            if form.is_valid():
+                form.save()
+                return redirect('fuentedevulnerabilidad_list')
+            
+        else:
+            form=FuenteDeVulnerabilidadForm(instance=fuentedevulnerabilidad)
+            return render(request,'fuentedevulnerabilidad/update.html',{'form':form,'fuentedevulnerabilidad':fuentedevulnerabilidad})
+    else:
+        return redirect('sinpermisos')
+    
+@login_required
+def fuentedevulnerabilidad_delete(request,fuentedevulnerabilidad_id):
+    if request.user.userprofile.role == 'admin':
+        fuentedevulnerabilidad=get_object_or_404(FuenteDeVulnerabilidad,pk=fuentedevulnerabilidad_id)
+        if request.method=='POST':
+            fuentedevulnerabilidad.delete()
+            return redirect('fuentedevulnerabilidad_list')
+        else:
+            return render(request,'fuentedevulnerabilidad/confirm_delete.html',{'fuentedevulnerabilidad':fuentedevulnerabilidad})
+    else:
+        return redirect('sinpermisos')  

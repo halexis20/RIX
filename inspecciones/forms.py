@@ -1,5 +1,5 @@
 from django import forms
-from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente
+from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente,FuenteDeVulnerabilidad
 
 class ElementoForm(forms.ModelForm):
     class Meta:
@@ -76,10 +76,11 @@ class ModoDeFallaForm(forms.ModelForm):
 class InspeccionForm(forms.ModelForm):
     class Meta:
         model = Inspeccion
-        fields = ['fecha', 'inspector', 'componente', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla','notificacion','recomendacion','fechaplaneada','comentarios','realizado']  # Incluir 'fotos' en los campos del formulario
+        fields = ['fuentedevulnerabilidad','fecha', 'inspector', 'componente', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla','notificacion','recomendacion','fechaplaneada','comentarios','realizado']  # Incluir 'fotos' en los campos del formulario
         
 
         widgets = {
+            'fuentedevulnerabilidad': forms.Select(attrs={'class': 'form-control select2'}),
             'fecha': forms.DateTimeInput(attrs={'class': 'form-control','type':'datetime-local'}),
             'inspector': forms.Select(attrs={'class': 'form-control'}),
             'componente': forms.Select(attrs={'class': 'form-control select2'}),
@@ -110,4 +111,13 @@ class FotoForm(forms.Form):
     imagenes = forms.ImageField(required=False)
     widgets = {
             'imagenes': forms.ClearableFileInput(attrs={'class': 'form-control','multiple':''}),
+        }
+    
+
+class FuenteDeVulnerabilidadForm(forms.ModelForm):
+    class Meta:
+        model=FuenteDeVulnerabilidad
+        fields=['nombre']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'})
         }
