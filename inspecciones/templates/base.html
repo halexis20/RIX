@@ -28,35 +28,27 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'elemento_list' %}">Elementos</a>
                         </li>
-                        {% endif %}
-                        {% if request.user.userprofile.role == 'admin' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'vulnerabilidad_list' %}">Vulnerabilidades</a>
                         </li>
-                        {% endif %}
-                        {% if request.user.userprofile.role == 'admin' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'inspector_list' %}">Inspectores</a>
                         </li>
-                        {% endif %}
-                        {% if request.user.userprofile.role == 'admin' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'mododefalla_list' %}">MDFS</a>
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'ultimas_inspecciones' %}">Ultimas Inspecciones</a>
+                            <a class="nav-link" href="{% url 'ultimas_inspecciones' %}">Últimas Inspecciones</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dash</a>
-                        </li>
-                        <a href="{% url 'logout' %}" class="btn btn-danger btn-block">Cerrar Sesión</a>
-                        <!-- Agrega más elementos del menú según sea necesario -->
                     </ul>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+                    <!-- Agrega más elementos del menú según sea necesario -->
                 </div>
             </div>
         </nav>
     </header>
+    
 
     <div class="container">
         {% block content %}

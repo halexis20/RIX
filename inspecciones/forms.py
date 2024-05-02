@@ -1,5 +1,5 @@
 from django import forms
-from .models import Elemento,Atributo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto
+from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente
 
 class ElementoForm(forms.ModelForm):
     class Meta:
@@ -24,9 +24,9 @@ class ElementoForm(forms.ModelForm):
         }
 
 
-class AtributoForm(forms.ModelForm):
+class EquipoForm(forms.ModelForm):
     class Meta:
-        model= Atributo
+        model= Equipo
         fields=['nombre','descripcion','tag','elemento']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
@@ -35,6 +35,16 @@ class AtributoForm(forms.ModelForm):
             'elemento': forms.Select(attrs={'class': 'form-control'}),
         }
 
+
+class ComponenteForm(forms.ModelForm):
+    class Meta:
+        model= Componente
+        fields=['nombre','descripcion','equipo']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+            'equipo': forms.Select(attrs={'class': 'form-control select2'}),
+        }
 
 class VulnerabilidadForm(forms.ModelForm):
     class Meta:
@@ -66,20 +76,29 @@ class ModoDeFallaForm(forms.ModelForm):
 class InspeccionForm(forms.ModelForm):
     class Meta:
         model = Inspeccion
-        fields = ['fecha', 'inspector', 'atributo', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla']  # Incluir 'fotos' en los campos del formulario
+        fields = ['fecha', 'inspector', 'componente', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla','notificacion','recomendacion','fechaplaneada','comentarios','realizado']  # Incluir 'fotos' en los campos del formulario
         
 
         widgets = {
             'fecha': forms.DateTimeInput(attrs={'class': 'form-control','type':'datetime-local'}),
             'inspector': forms.Select(attrs={'class': 'form-control'}),
-            'atributo': forms.Select(attrs={'class': 'form-control select2'}),
+            'componente': forms.Select(attrs={'class': 'form-control select2'}),
             'vulnerabilidad': forms.Select(attrs={'class': 'form-control'}),
             'temperatura': forms.NumberInput(attrs={'class': 'form-control'}),
             'vibracion': forms.NumberInput(attrs={'class': 'form-control'}),
             'observacion': forms.Textarea(attrs={'class': 'form-control'}),
             'aviso': forms.TextInput(attrs={'class': 'form-control'}),
             'modosdefalla': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'notificacion': forms.TextInput(attrs={'class': 'form-control'}),
+            'recomendacion': forms.Textarea(attrs={'class': 'form-control'}),
+            'fechaplaneada': forms.DateInput(attrs={'class': 'form-control','type': 'date'}),
+            'comentarios': forms.Textarea(attrs={'class': 'form-control'}),
+            'realizado': forms.Select(attrs={'class': 'form-control'},choices=[('Si', 'Sí'), ('No', 'No')]),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fechaplaneada'].required = False
 
 
 class FotoForm(forms.Form):

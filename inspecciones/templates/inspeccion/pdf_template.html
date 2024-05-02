@@ -3,8 +3,8 @@
 {% block title %}Detalles de Inspección - {{ inspeccion.id }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="card mt-5">
+<div class="container mt-5">
+    <div class="card">
         <div class="card-header bg-primary text-white">
             <h3 class="card-title">Detalles de Inspección - {{ inspeccion.id }}</h3>
         </div>
@@ -13,7 +13,7 @@
                 <div class="col-md-6">
                     <p><strong>Fecha:</strong> {{ inspeccion.fecha }}</p>
                     <p><strong>Inspector:</strong> {{ inspeccion.inspector }}</p>
-                    <p><strong>Ubicación:</strong> {{ inspeccion.atributo }}</p>
+                    <p><strong>Componente:</strong> {{ inspeccion.componente }}</p>
                     <p><strong>Vulnerabilidad:</strong> {{ inspeccion.vulnerabilidad }}</p>
                     <p><strong>Temperatura:</strong> {{ inspeccion.temperatura }}</p>
                     <p><strong>Vibración:</strong> {{ inspeccion.vibracion }}</p>
@@ -24,7 +24,7 @@
                     <p><strong>Modos de Falla:</strong></p>
                     <ul>
                         {% for modo in inspeccion.modosdefalla.all %}
-                        <li>{{ modo.nombre }}</li>
+                            <li>{{ modo.nombre }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -33,11 +33,19 @@
                 <h4 class="mb-3">Fotos de la Inspección:</h4>
                 <div class="row">
                     {% for foto in inspeccion.fotos.all %}
-                    <div class="col-md-4 mb-3">
-                        <img src="{{ foto.imagen.url }}" class="img-fluid img-thumbnail" alt="Foto de Inspección">
-                    </div>
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ foto.imagen.url }}" class="img-fluid img-thumbnail" alt="Foto de Inspección">
+                        </div>
                     {% endfor %}
                 </div>
+            </div>
+            <div class="mt-4">
+                <h4 class="mb-3">Acciones:</h4>
+                <p><strong>Realizado:</strong> {{ inspeccion.get_realizado_display }}</p>
+                <p><strong>Notificación:</strong> {{ inspeccion.notificacion }}</p>
+                <p><strong>Recomendación:</strong> {{ inspeccion.recomendacion }}</p>
+                <p><strong>Fecha Planeada:</strong> {{ inspeccion.fechaplaneada }}</p>
+                <p><strong>Comentarios:</strong> {{ inspeccion.comentarios }}</p>
             </div>
         </div>
     </div>

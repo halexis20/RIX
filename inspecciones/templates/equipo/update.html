@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Editar Atributo{% endblock %}
+{% block title %}Editar Equipo{% endblock %}
 
 {% block content %}
 <div class="container"></div>
-<h1 class="mt-5">Actualizar atributo {{ atributo.nombre }}</h1>
-<form method="post" action="{% url 'atributo_update' atributo_id=atributo.id%}" enctype="multipart/form-data">
+<h1 class="mt-5">Actualizar equipo {{ equipo.nombre }}</h1>
+<form method="post" action="{% url 'equipo_update' equipo_id=equipo.id%}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">

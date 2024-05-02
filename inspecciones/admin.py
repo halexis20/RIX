@@ -1,6 +1,10 @@
 from django.contrib import admin
-from inspecciones.models import Elemento,Atributo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,UserProfile
+from inspecciones.models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,UserProfile,Componente
 # Register your models here.
+
+@admin.register(Componente)
+class ComponenteAdmin(admin.ModelAdmin):
+    list_display=['id','nombre','descripcion']
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
@@ -10,8 +14,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 class ElementoAdmin(admin.ModelAdmin):
     list_display=['id','nombre','descripcion','padre']
 
-@admin.register(Atributo)
-class AtributoAdmin(admin.ModelAdmin):
+@admin.register(Equipo)
+class EquipoAdmin(admin.ModelAdmin):
     list_display=['id','tag','nombre','descripcion','elemento']
 
 @admin.register(Vulnerabilidad)
@@ -28,7 +32,7 @@ class ModoDeFallaAdmin(admin.ModelAdmin):
 
 @admin.register(Inspeccion)
 class InspeccionAdmin(admin.ModelAdmin):
-    list_display=['id','fecha', 'inspector', 'atributo', 'vulnerabilidad', 'temperatura', 'vibracion', 'aviso']
+    list_display=['id','fecha', 'inspector', 'vulnerabilidad', 'temperatura', 'vibracion', 'aviso']
 
 @admin.register(Foto)
 class FotoAdmin(admin.ModelAdmin):

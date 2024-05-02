@@ -13,6 +13,8 @@
         {% endfor %}
     </ul>
     <a href="{% url 'elemento_create' %}" class="btn btn-success mt-3">Crear Nuevo Elemento</a>
+  
+    
 </div>
 </div>
 
@@ -21,17 +23,29 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.toggle-details').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                var atributos = document.getElementById(btn.dataset.targetAtributos); // Encuentra la lista de atributos
+                var equipos = document.getElementById(btn.dataset.targetEquipos); // Encuentra la lista de equipos
                 var hijos = document.getElementById(btn.dataset.targetHijos); // Encuentra la lista de hijos
-                
-                if (atributos && hijos) {
-                    atributos.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los atributos
+                var componentes= document.getElementById(btn.dataset.targetComponentes);  //encuentra la lista de componentes
+
+                if (equipos && hijos) {
+                    equipos.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los equipos
                     hijos.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los hijos
                     if (btn.innerText === '+') {
                         btn.innerText = '-'; // Cambia el texto a "Ocultar" si los detalles se muestran
                     } else {
                         btn.innerText = '+'; // Cambia el texto a "Mostrar" si los detalles se ocultan
                     }
+                
+                }
+
+                if (componentes) {
+                    componentes.classList.toggle('show'); // Alterna la clase 'show' para mostrar u ocultar los equipos
+                    if (btn.innerText === '+') {
+                        btn.innerText = '-'; // Cambia el texto a "Ocultar" si los detalles se muestran
+                    } else {
+                        btn.innerText = '+'; // Cambia el texto a "Mostrar" si los detalles se ocultan
+                    }
+                
                 }
             });
         });

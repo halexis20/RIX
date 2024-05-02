@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Crear Atributo{% endblock %}
+{% block title %}Crear Equipo{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="mt-5">Crear Nuevo Atributo en {{elemento.nombre}}</h1>
-    <form method="post" action="{% url 'atributo_create' elemento_id=elemento.id%}" enctype="multipart/form-data">
+    <h1 class="mt-5">Crear Nuevo Equipo en {{elemento.nombre}}</h1>
+    <form method="post" action="{% url 'equipo_create' elemento_id=elemento.id%}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">

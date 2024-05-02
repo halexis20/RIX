@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Elemento,Atributo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto
-from .forms import ElementoForm,AtributoForm,VulnerabilidadForm,InspectorForm,ModoDeFallaForm,InspeccionForm,FotoForm
+from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente
+from .forms import ElementoForm,EquipoForm,VulnerabilidadForm,InspectorForm,ModoDeFallaForm,InspeccionForm,FotoForm,ComponenteForm
 from django.http import HttpRequest
 from django.contrib import messages
 from django import forms
@@ -98,49 +98,95 @@ def elemento_update(request,elemento_id):
         return redirect('sinpermisos')
 
 @login_required
-def atributo_create(request,elemento_id):
+def equipo_create(request,elemento_id):
     if request.user.userprofile.role == 'admin':
         elemento= get_object_or_404(Elemento,pk=elemento_id)
         if request.method=='POST':
-            form=AtributoForm(request.POST)
+            form=EquipoForm(request.POST)
             if form.is_valid():
                 form.save()
                 return redirect('elemento_list')
         else:
-            form = AtributoForm(initial={'elemento': elemento})
+            form = EquipoForm(initial={'elemento': elemento})
             form.fields['elemento'].widget = forms.HiddenInput()
-        return render(request,'atributo/create.html',{'form':form,'elemento':elemento})
+        return render(request,'equipo/create.html',{'form':form,'elemento':elemento})
+    else:
+        return redirect('sinpermisos')
+    
+@login_required
+def componente_create(request,equipo_id):
+    if request.user.userprofile.role == 'admin':
+        equipo= get_object_or_404(Equipo,pk=equipo_id)
+        if request.method=='POST':
+            form=ComponenteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+        else:
+            form = ComponenteForm(initial={'equipo': equipo})
+            form.fields['equipo'].widget = forms.HiddenInput()
+        return render(request,'componente/create.html',{'form':form,'equipo':equipo})
     else:
         return redirect('sinpermisos')
 
 @login_required
-def atributo_update(request,atributo_id):
+def componente_update(request,componente_id):
     if request.user.userprofile.role == 'admin':
-        atributo=get_object_or_404(Atributo,pk=atributo_id)
+        componente=get_object_or_404(Componente,pk=componente_id)
         if request.method=='POST':
-            form=AtributoForm(request.POST,instance=atributo)
+            form=ComponenteForm(request.POST,instance=componente)
             if form.is_valid():
                 form.save()
                 return redirect('elemento_list')
             
         else:
-            form=AtributoForm(instance=atributo)
+            form=ComponenteForm(instance=componente)
 
-        return render(request,'atributo/update.html',{'form':form,'atributo':atributo})
+        return render(request,'componente/update.html',{'form':form,'componente':componente})
     else:
         return redirect('sinpermisos')
 
 @login_required
-def atributo_delete(request, atributo_id):
+def componente_delete(request, componente_id):
     if request.user.userprofile.role == 'admin':
         # Obtener el elemento a eliminar
-        atributo = get_object_or_404(Atributo, pk=atributo_id)
+        componente = get_object_or_404(Componente, pk=componente_id)
 
         if request.method == 'POST':
-            atributo.delete()
+            componente.delete()
             return redirect('elemento_list')
         else:
-            return render(request, 'atributo/confirm_delete.html', {'atributo': atributo})
+            return render(request, 'componente/confirm_delete.html', {'componente': componente})
+    return redirect('sinpermisos')
+
+@login_required
+def equipo_update(request,equipo_id):
+    if request.user.userprofile.role == 'admin':
+        equipo=get_object_or_404(Equipo,pk=equipo_id)
+        if request.method=='POST':
+            form=EquipoForm(request.POST,instance=equipo)
+            if form.is_valid():
+                form.save()
+                return redirect('elemento_list')
+            
+        else:
+            form=EquipoForm(instance=equipo)
+
+        return render(request,'equipo/update.html',{'form':form,'equipo':equipo})
+    else:
+        return redirect('sinpermisos')
+
+@login_required
+def equipo_delete(request, equipo_id):
+    if request.user.userprofile.role == 'admin':
+        # Obtener el elemento a eliminar
+        equipo = get_object_or_404(Equipo, pk=equipo_id)
+
+        if request.method == 'POST':
+            equipo.delete()
+            return redirect('elemento_list')
+        else:
+            return render(request, 'equipo/confirm_delete.html', {'equipo': equipo})
     return redirect('sinpermisos')
     
 @login_required
@@ -320,7 +366,7 @@ def inspeccion_create(request):
     else:
         inspeccionform = InspeccionForm()
         fotoform=FotoForm()
-        inspeccionform.fields['atributo'].queryset = Atributo.objects.all().order_by('tag')
+        inspeccionform.fields['componente'].queryset = Componente.objects.all().order_by('nombre')
     return render(request, 'inspeccion/create.html', {'inspeccionform': inspeccionform,'fotoform':fotoform})
 
 @login_required
@@ -345,12 +391,13 @@ def inspeccion_update(request, inspeccion_id):
             return redirect('inspeccion_list')
     else:
         inspeccion_fecha_iso8601 = inspeccion.fecha.strftime('%Y-%m-%d %H:%M:%S')
-        form = InspeccionForm(instance=inspeccion,initial={'fecha': inspeccion_fecha_iso8601})
+        inspeccion_fechaplaneada_iso8601=inspeccion.fechaplaneada.strftime('%Y-%m-%d')
+        form = InspeccionForm(instance=inspeccion,initial={'fecha': inspeccion_fecha_iso8601,'fechaplaneada':inspeccion_fechaplaneada_iso8601})
         fotoform = FotoForm()
         # Obtener todas las fotos relacionadas con la inspección existente
         fotos = inspeccion.fotos.all()
-        # Puedes agregar esta línea si deseas ordenar los atributos por tag en el formulario
-        form.fields['atributo'].queryset = Atributo.objects.all().order_by('tag')
+        # Puedes agregar esta línea si deseas ordenar los equipos por tag en el formulario
+        form.fields['componente'].queryset = Componente.objects.all().order_by('nombre')
 
 
     return render(request, 'inspeccion/update.html', {'form': form, 'inspeccion': inspeccion, 'fotoform': fotoform, 'fotos': fotos,'inspeccion_fecha_iso8601':inspeccion_fecha_iso8601})
@@ -375,47 +422,13 @@ def inspeccion_pdf(request, inspeccion_id):
 
 @login_required
 def ultimas_inspecciones(request):
-    # Obtener la fecha más reciente de cada atributo
-    fechas_maximas = Inspeccion.objects.values('atributo').annotate(max_fecha=Max('fecha'))
+    # Obtener la fecha más reciente de cada equipo
+    fechas_maximas = Inspeccion.objects.values('componente').annotate(max_fecha=Max('fecha'))
 
-    # Filtrar las inspecciones que coincidan con las fechas máximas por atributo
-    ultimas_inspecciones = Inspeccion.objects.filter(atributo__in=fechas_maximas.values('atributo'), fecha__in=fechas_maximas.values('max_fecha')).order_by('-fecha')
+    # Filtrar las inspecciones que coincidan con las fechas máximas por equipo
+    ultimas_inspecciones = Inspeccion.objects.filter(componente__in=fechas_maximas.values('componente'), fecha__in=fechas_maximas.values('max_fecha')).order_by('-fecha')
 
     return render(request, 'inspeccion/ultimas_inspecciones.html', {'ultimas_inspecciones': ultimas_inspecciones})
-
-@login_required
-def dashboard(request):
-    # Número total de inspecciones realizadas
-    total_inspecciones = Inspeccion.objects.count()
-
-    # Distribución de inspecciones por inspector
-    inspecciones_por_inspector = Inspeccion.objects.values('inspector__nombre').annotate(total=Count('id'))
-
-    # Distribución de inspecciones por elemento y atributo
-    inspecciones_por_elemento_atributo = Inspeccion.objects.values('atributo__elemento__nombre', 'atributo__nombre').annotate(total=Count('id'))
-
-    # Temperatura y vibración promedio por atributo
-    # Temperatura y vibración promedio por atributo
-    promedio_temperatura_por_atributo = (
-        Inspeccion.objects.values('atributo__nombre')
-        .annotate(promedio_temperatura=Avg('temperatura'))
-    )
-    promedio_vibracion_por_atributo = (
-        Inspeccion.objects.values('atributo__nombre')
-        .annotate(promedio_vibracion=Avg('vibracion'))
-    )
-
-    # Modos de falla más comunes
-    modos_de_falla_comunes = ModoDeFalla.objects.annotate(total=Count('inspecciones')).order_by('-total')[:5]
-
-    return render(request, 'dashboard/dashboard.html', {
-        'total_inspecciones': total_inspecciones,
-        'inspecciones_por_inspector': inspecciones_por_inspector,
-        'inspecciones_por_elemento_atributo': inspecciones_por_elemento_atributo,
-        'promedio_temperatura_por_atributo': promedio_temperatura_por_atributo,
-        'promedio_vibracion_por_atributo': promedio_vibracion_por_atributo,
-        'modos_de_falla_comunes': modos_de_falla_comunes
-    })
 
 
 def error_404(request, exception):

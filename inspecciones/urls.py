@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,atributo_create,atributo_update,atributo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,dashboard
+from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update
 from django.contrib.auth.views import LoginView,LogoutView
 from django.conf.urls import handler404
 from django.shortcuts import render
@@ -10,9 +10,9 @@ urlpatterns=[
     path('elemento/<int:elemento_id>/update',elemento_update,name='elemento_update'),
     path('elemento/<int:elemento_id>/delete',elemento_delete,name='elemento_delete'),
     path('elemento',elemento_list,name='elemento_list'),
-    path('atributo/<int:elemento_id>/create',atributo_create,name='atributo_create'),
-    path('atributo/<int:atributo_id>/update',atributo_update,name='atributo_update'),
-    path('atributo/<int:atributo_id>/delete',atributo_delete,name='atributo_delete'),
+    path('equipo/<int:elemento_id>/create',equipo_create,name='equipo_create'),
+    path('equipo/<int:equipo_id>/update',equipo_update,name='equipo_update'),
+    path('equipo/<int:equipo_id>/delete',equipo_delete,name='equipo_delete'),
     path('vulnerabilidad',vulnerabilidad_list,name='vulnerabilidad_list'),
     path('vulnerabilidad/create',vulnerabilidad_create,name='vulnerabilidad_create'),
     path('vulnerabilidad/<int:vulnerabilidad_id>/update',vulnerabilidad_update,name='vulnerabilidad_update'),
@@ -34,5 +34,7 @@ urlpatterns=[
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',custom_logout,name='logout'),
     path('sinpermisos',sin_permisos,name='sinpermisos'),
-    path('dashboard',dashboard,name='dashboard')
+    path('componente/<int:equipo_id>/create',componente_create,name='componente_create'),
+    path('componente/<int:componente_id>/update',componente_update,name='componente_update'),
+    path('componente/<int:componente_id>/delete',componente_delete,name='componente_delete'),
 ]
