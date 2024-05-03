@@ -501,7 +501,7 @@ def componente_list(request):
     return render(request, 'componente/list.html', {'componentes': componentes})
 
 
-
+@login_required
 def reporte_probabilidades_semana(request):
     # Obtener el año actual
     años_disponibles = Inspeccion.objects.values_list('fecha__year', flat=True).distinct()
