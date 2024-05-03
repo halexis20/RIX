@@ -48,7 +48,7 @@
                         {% for semana, nivel_vulnerabilidad in datos_semanales.items %}
                             <td>
                                 <div style="width: 30px; height: 30px; background-color: {{ nivel_vulnerabilidad.color }}; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: rgba(255, 255, 255, 0.1);" title="{{ nivel_vulnerabilidad.valor }}">
-                                    {{ nivel_vulnerabilidad.valor }}
+                                    {{ nivel_vulnerabilidad.vulnerabilidad }}
                                 </div>
           
                             </td>
