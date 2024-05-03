@@ -82,12 +82,12 @@ class ModoDeFallaForm(forms.ModelForm):
 class InspeccionForm(forms.ModelForm):
     class Meta:
         model = Inspeccion
-        fields = ['fuentedevulnerabilidad','fecha', 'inspector', 'componente', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion', 'aviso', 'modosdefalla','notificacion','recomendacion','fechaplaneada','comentarios','realizado']  # Incluir 'fotos' en los campos del formulario
+        fields = ['fecha', 'fuentedevulnerabilidad','inspector', 'componente','notificacion','aviso', 'vulnerabilidad', 'temperatura', 'vibracion', 'observacion','recomendacion','modosdefalla','fechaplaneada','comentarios','realizado']  # Incluir 'fotos' en los campos del formulario
         
 
         widgets = {
-            'fuentedevulnerabilidad': forms.Select(attrs={'class': 'form-control select2'}),
             'fecha': forms.DateTimeInput(attrs={'class': 'form-control','type':'datetime-local'}),
+            'fuentedevulnerabilidad': forms.Select(attrs={'class': 'form-control select2'}),
             'inspector': forms.Select(attrs={'class': 'form-control'}),
             'componente': forms.Select(attrs={'class': 'form-control select2'}),
             'vulnerabilidad': forms.Select(attrs={'class': 'form-control'}),
