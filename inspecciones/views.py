@@ -391,7 +391,10 @@ def inspeccion_update(request, inspeccion_id):
             return redirect('inspeccion_list')
     else:
         inspeccion_fecha_iso8601 = inspeccion.fecha.strftime('%Y-%m-%d %H:%M:%S')
-        inspeccion_fechaplaneada_iso8601=inspeccion.fechaplaneada.strftime('%Y-%m-%d')
+        if inspeccion.fechaplaneada :
+            inspeccion_fechaplaneada_iso8601=inspeccion.fechaplaneada.strftime('%Y-%m-%d')
+        else:
+            inspeccion_fechaplaneada_iso8601=""
         form = InspeccionForm(instance=inspeccion,initial={'fecha': inspeccion_fecha_iso8601,'fechaplaneada':inspeccion_fechaplaneada_iso8601})
         fotoform = FotoForm()
         # Obtener todas las fotos relacionadas con la inspección existente
