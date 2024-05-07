@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}]Diagrama Planta{% endblock %}
+
+{% block content %}
+
+{% block estilos %}
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .icono-maquina {
+            margin-right: 10px;
+        }
+        .circulo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #050505;
+            display: inline-block;
+            margin-left: 10px;
+        }
+    </style>
+
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function obtenerValorMaximoYColorEquipos(equipoIds) {
+    fetch('/probabilidadxequipoxactual')
+        .then(response => response.json())
+        .then(data => {
+            equipoIds.forEach(equipoId => {
+                const equipoData = data[equipoId];
+                if (equipoData) {
+                    const valor = equipoData.valor;
+                    const color = equipoData.color;
+                    console.log(`Equipo ${equipoId}: Valor máximo de vulnerabilidad: ${valor}, Color: ${color}`);
+                    document.getElementById("semaforo-maximo-" + equipoId).style.backgroundColor = color;
+                } else {
+                    console.log(`No se encontraron datos para el equipo con ID ${equipoId}`);
+                    document.getElementById("semaforo-maximo-" + equipoId).style.backgroundColor = "#050505";
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos:', error));
+}
+// Ejemplo de uso
+const equipoIds = ["30RB01", "30CR01","30ER014","35FE01","35FE02","35CV01","35CV02","35SN01","35SN02"]; // Lista de IDs de equipos que deseas consultar
+obtenerValorMaximoYColorEquipos(equipoIds);
+
+// Actualizar la vulnerabilidad máxima cada 5 segundos
+setInterval(() => obtenerValorMaximoYColorEquipos(equipoIds), 5000);
+
+</script>
+
+
+<div class="container">
+    <h1 class="mt-5">Diagrama</h1>
+    <ul class="list-group mt-3">
+    <td>
+        Diagrama Refrescando cada 5 segundos el semaforo
+    </td>
+    <br>
+
+    </ul>
+
+</div>
+</div>
+
+
+<div class="container mt-8">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>30-RB-01</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-30RB01"></div> <!-- Círculo -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>30-CR-01</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-30CR01"></div> <!-- Círculo -->
+            </div>
+
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>30-ER-014</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-30ER014"></div> <!-- Círculo -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-FE-01</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-35FE01"></div> <!-- Círculo -->
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-CV-01</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-35CV01"></div> <!-- Círculo -->
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-SN-01</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-35SN01"></div> <!-- Círculo -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-FE-02</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-35FE02"></div> <!-- Círculo -->
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-CV-02</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo"- id="semaforo-maximo-35CV02"></div> <!-- Círculo -->
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <i class="fas fa-industry fa-3x icono-maquina"></i>
+                <span>35-SN-02</span>
+            </div>
+            <div class="col-md-1 text-center mt-3">
+                <div class="circulo" id="semaforo-maximo-35SN02"></div> <!-- Círculo -->
+            </div>
+        </div>
+</div>
+
+{% endblock %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>

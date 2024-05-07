@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente,FuenteDeVulnerabilidad
 from .forms import ElementoForm,EquipoForm,VulnerabilidadForm,InspectorForm,ModoDeFallaForm,InspeccionForm,FotoForm,ComponenteForm,FuenteDeVulnerabilidadForm
-from django.http import HttpRequest
+from django.http import HttpRequest,JsonResponse
 from django.contrib import messages
 from django import forms
 
@@ -564,3 +564,40 @@ def reporte_probabilidades_semana(request):
 
     # Renderizar el template con los datos del informe
     return render(request, 'reporte_probabilidades_semanal.html', {'reporte': reporte, 'año_actual': año_actual,'años_disponibles':años_disponibles,'semanas':semanas})
+
+
+
+
+@login_required
+def valor_maximo_vulnerabilidad(request):
+
+    return render(request, 'diagramaplanta.html')
+
+
+def valores_maximos_vulnerabilidad_equipo(request):
+
+    # Obtener la fecha más reciente de cada componente
+    fechas_maximas = Inspeccion.objects.values('componente').annotate(max_fecha=Max('fecha'))
+
+    # Filtrar las inspecciones que coincidan con las fechas máximas por componente
+    ultimas_inspecciones = Inspeccion.objects.filter(componente__in=fechas_maximas.values('componente'), fecha__in=fechas_maximas.values('max_fecha'))
+
+    # Crear un diccionario para almacenar los valores máximos y colores de vulnerabilidad por equipo
+    valores_maximos_vulnerabilidad = {}
+
+    # Iterar sobre las últimas inspecciones de cada componente
+    for inspeccion in ultimas_inspecciones:
+        equipo_id = inspeccion.componente.equipo.id
+        valor_vulnerabilidad = inspeccion.vulnerabilidad.valor
+        color_vulnerabilidad = inspeccion.vulnerabilidad.color
+        equipo_tag= inspeccion.componente.equipo.tag
+
+        # Actualizar el valor máximo de vulnerabilidad para el equipo
+        if equipo_tag not in valores_maximos_vulnerabilidad:
+            valores_maximos_vulnerabilidad[equipo_tag] = {'valor': valor_vulnerabilidad, 'color': color_vulnerabilidad}
+        else:
+            if valor_vulnerabilidad > valores_maximos_vulnerabilidad[equipo_tag]['valor']:
+                valores_maximos_vulnerabilidad[equipo_tag] = {'valor': valor_vulnerabilidad, 'color': color_vulnerabilidad}
+
+
+    return JsonResponse(valores_maximos_vulnerabilidad)
