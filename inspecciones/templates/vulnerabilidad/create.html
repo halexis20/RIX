@@ -2,9 +2,10 @@
 
 {% block title %}Crear Probabilidad{% endblock %}
 
+{% block elemento %}Crear Nueva Probabilidad{% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Crear Nueva Probabilidad</h1>
+
     <form method="post" action="{% url 'vulnerabilidad_create' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -20,7 +21,7 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+
 
 {% endblock %}
 

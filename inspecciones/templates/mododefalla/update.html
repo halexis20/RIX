@@ -2,9 +2,10 @@
 
 {% block title %}Editar MDF{% endblock %}
 
+{% block elemento %} Actualizar MDF {{ mododefalla.nombre }} {% endblock %}
+
 {% block content %}
-<div class="container"></div>
-<h1 class="mt-5">Actualizar MDF {{ mododefalla.nombre }}</h1>
+
 <form method="post" action="{% url 'mododefalla_update' mododefalla_id=mododefalla.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
@@ -20,6 +21,6 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
 </form>
-</div>
+
 
 {% endblock %}

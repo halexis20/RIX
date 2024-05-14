@@ -12,11 +12,12 @@
 
 {% endblock %}
 
+{% block elemento %} Últimas Inspecciones {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Últimas Inspecciones</h1>
-    <div class="d-flex justify-content-center">
-    <table class="table" id="miTabla">
+
+<div class="table-responsive">
+    <table class="table" id="dataTable">
         <thead>
             <tr>
                 <th>Folio</th>
@@ -62,54 +63,30 @@
 
                 <td>
                     <a href="{% url 'inspeccion_pdf' inspeccion_id=inspeccion.id %}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-file-pdf"></i> Ver PDF
+                        <i class="bi bi-file-pdf"></i>
                     </a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    </div>
 </div>
+
 {% endblock %}
 
 {% block scriptscustom %}    
-<script>
-    $(document).ready(function() {
-        $('#miTabla').DataTable({
-            layout: {
-        top1Start: {
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: '<i class="bi bi-clipboard"></i>',
-                    titleAttr: 'Copiar'
-                },
-                {
-                    extend: 'excel',
-                    text: '<i class="bi bi-file-excel"></i>',
-                    titleAttr: 'Excel',
-                    className: '',
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="bi bi-file-earmark-text"></i>',
-                    titleAttr: 'Imprimir',
-                    download: 'open'
-                },
-                {
-                    extend: 'colvis',
-                    text: '<i class="bi bi-eye"></i>',
-                    titleAttr: 'Columnas'
-                }
-            ]
-        }
-    },
-            "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-            }
-        }
-    );
-    });
-</script>
+    {% load static %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.js"></script>
+
 {% endblock %}

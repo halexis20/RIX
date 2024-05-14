@@ -2,9 +2,10 @@
 
 {% block title %}Editar Componente{% endblock %}
 
+{% block elemento %} Actualizar componente {{ componente.nombre }} {% endblock %}
+
 {% block content %}
-<div class="container"></div>
-<h1 class="mt-5">Actualizar componente {{ componente.nombre }}</h1>
+
 <form method="post" action="{% url 'componente_update' componente_id=componente.id%}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
@@ -20,7 +21,7 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
-</div>
+
 
 {% endblock %}
 

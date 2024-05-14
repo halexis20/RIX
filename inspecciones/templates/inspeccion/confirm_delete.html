@@ -2,20 +2,20 @@
 
 {% block title %}Confirmar Eliminación{% endblock %}
 
+{% block elemento %} Confirmar Eliminación {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Confirmar Eliminación</h1>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">¿Estás seguro de que deseas eliminar la siguiente inspeccion?</h5>
-            <p class="card-text">Fecha: {{ inspeccion.fecha }}</p>
-            <p class="card-text">ID: {{ inspeccion.id }}</p>
+
+
+
+            <h5 >¿Estás seguro de que deseas eliminar la siguiente inspeccion?</h5>
+            <p >Fecha: {{ inspeccion.fecha }}</p>
+            <p >ID: {{ inspeccion.id }}</p>
             <form method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Eliminar</button>
                 <a href="{% url 'inspeccion_list' %}" class="btn btn-secondary">Cancelar</a>
             </form>
-        </div>
-    </div>
-</div>
+
+
 {% endblock %}

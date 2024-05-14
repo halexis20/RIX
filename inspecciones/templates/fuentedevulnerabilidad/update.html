@@ -2,9 +2,10 @@
 
 {% block title %}Editar Fuente {% endblock %}
 
+{% block elemento %} Actualizar Fuente {{ fuentedevulnerabilidad.nombre }} {% endblock %}
+
 {% block content %}
-<div class="container"></div>
-<h1 class="mt-5">Actualizar Fuente {{ fuentedevulnerabilidad.nombre }}</h1>
+
 <form method="post" action="{% url 'fuentedevulnerabilidad_update' fuentedevulnerabilidad_id=fuentedevulnerabilidad.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
@@ -20,6 +21,6 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
 </form>
-</div>
+
 
 {% endblock %}

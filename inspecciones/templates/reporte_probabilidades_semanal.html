@@ -13,12 +13,13 @@
 
 {% endblock %}
 
+{% block elemento %}Informe de Probabilidades por Semana {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Informe de Probabilidades por Semana</h1>
-    <form method="GET" class="mt-3">
-        <div class="row">
-            <div class="col-md-4">
+
+    <form method="GET" class="mb-4">
+        <div class="row align-items-end">
+            <div class="col-md-2">
                 <label for="select-año" class="form-label">Seleccionar año:</label>
                 <select name="año" id="select-año" class="form-select">
                     {% for año in años_disponibles %}
@@ -32,7 +33,7 @@
         </div>
     </form>
     <div class="table-responsive mt-5">
-        <table class="table table-bordered table-hover" id="miTabla">
+        <table class="table table-bordered table-hover" id="dataTable">
             <thead class="table-primary">
                 <tr>
                     <th>Componente</th>
@@ -59,47 +60,23 @@
             </tbody>
         </table>
     </div>
-</div>
+
 {% endblock %}
 
 
 {% block scriptscustom %}    
-<script>
-    $(document).ready(function() {
-        $('#miTabla').DataTable({
-            layout: {
-        top1Start: {
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: '<i class="bi bi-clipboard"></i>',
-                    titleAttr: 'Copiar'
-                },
-                {
-                    extend: 'excel',
-                    text: '<i class="bi bi-file-excel"></i>',
-                    titleAttr: 'Excel',
-                    className: '',
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="bi bi-file-earmark-text"></i>',
-                    titleAttr: 'Imprimir',
-                    download: 'open'
-                },
-                {
-                    extend: 'colvis',
-                    text: '<i class="bi bi-eye"></i>',
-                    titleAttr: 'Columnas'
-                }
-            ]
-        }
-    },
-            "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-            }
-        }
-    );
-    });
-</script>
+    {% load static %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.js"></script>
+
 {% endblock %}

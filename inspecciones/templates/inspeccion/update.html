@@ -2,9 +2,10 @@
 
 {% block title %}Actualizar Inspección{% endblock %}
 
+{% block elemento %} Actualizar Inspección {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Actualizar Inspección</h1>
+
     <form method="post" action="{% url 'inspeccion_update' inspeccion_id=inspeccion.id %}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -43,7 +44,7 @@
         <!-- Botón para guardar cambios -->
         <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
     </form>
-</div>
+
 
 <!-- Incluir Select2 CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />

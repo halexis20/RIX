@@ -2,9 +2,10 @@
 
 {% block title %}Editar Probabilidad{% endblock %}
 
+{% block elemento %} Actualizar Probabilidad {{ vulnerabilidad.nombre }} {% endblock %}
+
 {% block content %}
-<div class="container"></div>
-<h1 class="mt-5">Actualizar probabilidad {{ vulnerabilidad.nombre }}</h1>
+
 <form method="post" action="{% url 'vulnerabilidad_update' vulnerabilidad_id=vulnerabilidad.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
@@ -20,6 +21,6 @@
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
 </form>
-</div>
+
 
 {% endblock %}

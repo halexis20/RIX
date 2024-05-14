@@ -2,9 +2,11 @@
 
 {% block title %}Lista de Elementos{% endblock %}
 
+{% block elemento %} Elementos {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Elementos</h1>
+
+   
     <ul class="list-group mt-3">
         {% for elemento in elementos %}
             {% if not elemento.padre %} {# Si el elemento no tiene padre, es un elemento raíz #}
@@ -15,8 +17,6 @@
     <a href="{% url 'elemento_create' %}" class="btn btn-success mt-3">Crear Nuevo Elemento</a>
   
     
-</div>
-</div>
 
 <script>
     // Agregar función JavaScript para mostrar/ocultar los detalles al hacer clic en el botón

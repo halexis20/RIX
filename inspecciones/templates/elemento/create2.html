@@ -2,9 +2,10 @@
 
 {% block title %}Crear Elemento{% endblock %}
 
+{% block elemento %} Crear Nuevo Elemento en {{elemento.nombre}} {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Crear Nuevo Elemento en {{elemento.nombre}}</h1>
+
     <form method="post" action="{% url 'elemento_create' elemento_id=elemento.id%}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -20,6 +21,6 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+
 
 {% endblock %}

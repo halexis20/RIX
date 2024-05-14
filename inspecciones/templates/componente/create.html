@@ -3,7 +3,7 @@
 {% block title %}Crear Componente{% endblock %}
 
 {% block content %}
-<div class="container">
+
     <h1 class="mt-5">Crear Nuevo Componente en {{equipo.nombre}}</h1>
     <form method="post" action="{% url 'componente_create' equipo_id=equipo.id%}" enctype="multipart/form-data">
         {% csrf_token %}
@@ -20,7 +20,7 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+
 
 {% endblock %}
 

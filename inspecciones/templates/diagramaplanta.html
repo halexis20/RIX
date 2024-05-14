@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}]Diagrama Planta{% endblock %}
+{% block title %}Diagrama Planta{% endblock %}
 
-{% block content %}
+{% block elemento %} Diagrama - Refrescando cada 5  segundos {% endblock %}
 
 {% block estilos %}
 
@@ -23,6 +23,12 @@
     </style>
 
 {% endblock %}
+
+{% block content %}
+
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 function obtenerValorMaximoYColorEquipos(equipoIds) {
@@ -53,22 +59,6 @@ setInterval(() => obtenerValorMaximoYColorEquipos(equipoIds), 5000);
 
 </script>
 
-
-<div class="container">
-    <h1 class="mt-5">Diagrama</h1>
-    <ul class="list-group mt-3">
-    <td>
-        Refrescando cada 5 segundos el semáforo
-    </td>
-    <br>
-
-    </ul>
-
-</div>
-</div>
-
-
-<div class="container mt-8">
         <div class="row">
             <div class="col-md-2 text-center">
                 <i class="fas fa-industry fa-3x icono-maquina"></i>
@@ -169,7 +159,7 @@ setInterval(() => obtenerValorMaximoYColorEquipos(equipoIds), 5000);
                 <div class="circulo" id="semaforo-maximo-35SN02"></div> <!-- Círculo -->
             </div>
         </div>
-</div>
+
 
 {% endblock %}
 

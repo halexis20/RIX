@@ -2,21 +2,22 @@
 
 {% block title %}Confirmar Eliminación{% endblock %}
 
+{% block elemento %} Confirmar Eliminación {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Confirmar Eliminación</h1>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">¿Estás seguro de que deseas eliminar el siguiente equipo?</h5>
-            <p class="card-text">TAG: {{ equipo.tag }}</p>
-            <p class="card-text">Nombre: {{ equipo.nombre }}</p>
-            <p class="card-text">Descripción: {{ equipo.descripcion }}</p>
+
+
+
+            <h5 >¿Estás seguro de que deseas eliminar el siguiente equipo?</h5>
+            <p >TAG: {{ equipo.tag }}</p>
+            <p >Nombre: {{ equipo.nombre }}</p>
+            <p >Descripción: {{ equipo.descripcion }}</p>
             <form method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Eliminar</button>
                 <a href="{% url 'elemento_list' %}" class="btn btn-secondary">Cancelar</a>
             </form>
-        </div>
-    </div>
-</div>
+
+
+
 {% endblock %}

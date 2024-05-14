@@ -2,9 +2,10 @@
 
 {% block title %}Crear Inspector{% endblock %}
 
+{% block elemento %}Crear Nuevo Inspector {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Crear Nuevo Inspector</h1>
+
     <form method="post" action="{% url 'inspector_create' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -20,6 +21,6 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+
 
 {% endblock %}

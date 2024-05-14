@@ -2,17 +2,69 @@
 
 {% block title %}Lista de Modos de Falla{% endblock %}
 
+{% block estilos %}    
+
+<link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.5/b-3.0.2/b-colvis-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+{% endblock %}
+
+{% block elemento %} Modos de Falla {% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Modos de Falla</h1>
-    <ul class="list-group mt-3">
-        {% for mododefalla in modosdefalla %}
-                {% include 'mododefalla/mododefalla_item.html' with mododefalla=mododefalla %}
-        {% endfor %}
-    </ul>
-    <a href="{% url 'mododefalla_create' %}" class="btn btn-success mt-3">Crear Nuevo MDF</a>
-</div>
+
+<div class="table-responsive">
+    <table class="table" id="dataTable">
+        <thead>
+            <tr>
+                <th >ID</th>
+                <th >Nombre</th>
+                <th >Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mododefalla in modosdefalla %}
+            <tr>
+                <td >{{ mododefalla.id }}</td>
+                <td >{{ mododefalla.nombre }}</td>      
+
+                <td >
+                    <a href="{% url 'mododefalla_update' mododefalla_id=mododefalla.id %}" class="btn btn-warning btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                            <path d="M13.646 0.354a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.828 0zM12.854 1.146l2 2L4 14H2v-2l9.854-9.854z"/>
+                        </svg>
+                    </a>
+                    {% if request.user.userprofile.role == 'admin' %}
+                    <a href="{% url 'mododefalla_delete' mododefalla_id=mododefalla.id %}" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'mododefalla_create' %}" class="btn btn-success mt-3">Crear Nuevo Modo de Falla</a>
+
 </div>
 
+{% endblock %}
+
+{% block scriptscustom %}    
+    {% load static %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.js"></script>
 
 {% endblock %}

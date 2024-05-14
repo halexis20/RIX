@@ -13,13 +13,12 @@
 
 {% endblock %}
 
+{% block elemento %} Componentes {% endblock %}
+
 {% block content %}
-<div class="container">
 
-    <h1 class="mt-5 ">Componentes</h1>
-
-    <div class="d-flex justify-content-center">
-    <table class="table" id="miTabla">
+<div class="table-responsive">
+    <table class="table" id="dataTable">
         <thead>
             <tr>
                 <th >ID</th>
@@ -41,13 +40,11 @@
                 
 
                 <td >
-                    <a href="{% url 'componente_update' componente_id=componente.id %}" class="btn btn-warning btn-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                            <path d="M13.646 0.354a2 2 0 0 1 0 2.828l-10 10a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.828 0zM12.854 1.146l2 2L4 14H2v-2l9.854-9.854z"/>
-                        </svg>
+                    <a href="{% url 'componente_update' componente_id=componente.id %}" class="btn btn-warning btn-circle btn-sm">
+                        <i class="bi bi-pencil-fill" ></i>
                     </a>
                     {% if request.user.userprofile.role == 'admin' %}
-                    <a href="{% url 'componente_delete' componente_id=componente.id %}" class="btn btn-danger btn-sm">
+                    <a href="{% url 'componente_delete' componente_id=componente.id %}" class="btn btn-danger btn-circle btn-sm">
                         <i class="bi bi-trash"></i>
                     </a>
                     {% endif %}
@@ -56,48 +53,24 @@
             {% endfor %}
         </tbody>
     </table>
-    </div>
-    </div>
+
 </div>
+
 {% endblock %}
 
 {% block scriptscustom %}    
-<script>
-    $(document).ready(function() {
-        $('#miTabla').DataTable({
-            layout: {
-        top1Start: {
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: '<i class="bi bi-clipboard"></i>',
-                    titleAttr: 'Copiar'
-                },
-                {
-                    extend: 'excel',
-                    text: '<i class="bi bi-file-excel"></i>',
-                    titleAttr: 'Excel',
-                    className: '',
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="bi bi-file-earmark-text"></i>',
-                    titleAttr: 'Imprimir',
-                    download: 'open'
-                },
-                {
-                    extend: 'colvis',
-                    text: '<i class="bi bi-eye"></i>',
-                    titleAttr: 'Columnas'
-                }
-            ]
-        }
-    },
-            "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
-            }
-        }
-    );
-    });
-</script>
+    {% load static %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+    <link href="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/jszip-3.10.1/dt-2.0.7/b-3.0.2/b-html5-3.0.2/b-print-3.0.2/datatables.min.js"></script>
+
 {% endblock %}
