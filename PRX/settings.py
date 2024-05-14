@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zm$e&f%_tjah%r*m5dn)8wi6mw%n#@g^#lbrae5qqwex25xdaj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -120,7 +120,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "inspecciones/static",
+    os.path.join(BASE_DIR, 'inspecciones/static/')
     # Otras ubicaciones si es necesario
 ]
 
@@ -136,3 +136,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'inspecciones/fotos/')
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/inspeccion'
 LOGOUT_REDIRECT_URL = 'login/'
+STATIC_ROOT = Path(BASE_DIR / 'static')
