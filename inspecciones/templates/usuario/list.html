@@ -38,7 +38,12 @@
                 <td>{{ usuario.last_name}}</td>  
                 <td>{{ usuario.email }}</td>
                 <td>{{ usuario.userprofile.role}}</td>
-                <td>{{ usuario.is_active}}</td>
+                <td>{% if usuario.is_active %}
+                    <i class="fas fa-user" style="color: green;"></i>
+                    {% else %}
+                    <i class="fas fa-user-times" style="color: red;"></i>
+                    {% endif %}
+                </td>
                 <td >
                     <a href="{% url 'usuario_update' user_id=usuario.id %}" class="btn btn-warning btn-circle btn-sm">
                         <i class="bi bi-pencil-fill" ></i>
@@ -47,7 +52,7 @@
                     <a href="{% url 'usuario_desactivate' usuario.id %}" class="btn btn-danger btn-sm">Desactivar</a>
                     {% endif %}
                     {% if not usuario.is_active and usuario.userprofile.role != 'admin' %}
-                    <a href="{% url 'usuario_desactivate' usuario.id %}" class="btn btn-danger btn-sm">Activar</a>
+                    <a href="{% url 'usuario_desactivate' usuario.id %}" class="btn btn-success btn-sm">Activar</a>
                     {% endif %}
                 </td>
             </tr>
