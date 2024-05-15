@@ -617,7 +617,7 @@ def user_create(request):
             profile.user = user
             profile.save()
             
-            return redirect('inspeccion_list')
+            return redirect('usuario_list')
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
