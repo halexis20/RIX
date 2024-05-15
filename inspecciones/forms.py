@@ -1,5 +1,5 @@
 from django import forms
-from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente,FuenteDeVulnerabilidad
+from .models import Elemento,Equipo,Vulnerabilidad,Inspector,ModoDeFalla,Inspeccion,Foto,Componente,FuenteDeVulnerabilidad,User,UserProfile
 
 class ElementoForm(forms.ModelForm):
     class Meta:
@@ -129,3 +129,38 @@ class FuenteDeVulnerabilidadForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+
+class UserForm(forms.ModelForm):
+    #password = forms.CharField(widget=forms.PasswordInput)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'first_name', 'last_name', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control','type':"email"}),
+        }
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control','type':"email"}),
+        }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['role']
+        widgets = {
+            'role': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+        

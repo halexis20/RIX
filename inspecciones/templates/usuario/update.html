@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block elemento %}Editar Usuario {% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-danger">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ user_form.as_p }}
+    </div>
+    <div class="form-group">
+        {{ profile_form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+
+{% endblock %}

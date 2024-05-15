@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update,fuentedevulnerabilidad_create,fuentedevulnerabilidad_list,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete,componente_list,reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo
+from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update,fuentedevulnerabilidad_create,fuentedevulnerabilidad_list,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete,componente_list,reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo,user_create,user_list,user_update,user_desactivate
 from django.contrib.auth.views import LoginView,LogoutView
 from django.conf.urls import handler404
 from django.shortcuts import render
@@ -44,5 +44,9 @@ urlpatterns=[
     path('componente',componente_list,name='componente_list'),
     path('mapasemanal',reporte_probabilidades_semana,name='reporte_probabilidades_semana'),
     path('diagramaplanta',valor_maximo_vulnerabilidad,name='diagramaplanta'),
-    path('probabilidadxequipoxactual',valores_maximos_vulnerabilidad_equipo,name='vulnerabilidadmaxima')
+    path('probabilidadxequipoxactual',valores_maximos_vulnerabilidad_equipo,name='vulnerabilidadmaxima'),
+    path('usuario/create',user_create,name='usuario_create'),
+    path('usuario',user_list,name='usuario_list'),
+    path('usuario/<int:user_id>/update',user_update,name='usuario_update'),
+    path('usuario/<int:user_id>/desactivate',user_desactivate,name='usuario_desactivate')
 ]
