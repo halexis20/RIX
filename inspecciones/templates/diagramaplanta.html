@@ -11,6 +11,7 @@
     <style>
         .icono-maquina {
             margin-right: 10px;
+            color:#050505;
         }
         .circulo {
             width: 30px;
@@ -41,124 +42,306 @@ function obtenerValorMaximoYColorEquipos(equipoIds) {
                     const valor = equipoData.valor;
                     const color = equipoData.color;
                     console.log(`Equipo ${equipoId}: Valor máximo de vulnerabilidad: ${valor}, Color: ${color}`);
-                    document.getElementById("semaforo-maximo-" + equipoId).style.backgroundColor = color;
+                    document.getElementById("semaforo-maximo-" + equipoId).style.color = color;
                 } else {
                     console.log(`No se encontraron datos para el equipo con ID ${equipoId}`);
-                    document.getElementById("semaforo-maximo-" + equipoId).style.backgroundColor = "#050505";
+                    document.getElementById("semaforo-maximo-" + equipoId).style.color = "#050505";
                 }
             });
         })
         .catch(error => console.error('Error al obtener los datos:', error));
 }
 // Ejemplo de uso
-const equipoIds = ["30RB01", "30CR01","30ER014","35FE01","35FE02","35CV01","35CV02","35SN01","35SN02"]; // Lista de IDs de equipos que deseas consultar
+const equipoIds = ["30CR01","30ER014","35FE01","35CV01","35SN01","35CR03","35BN04","35MH04","35CV05","35FE08","35FE09","35FE10","35FE11","35FE12","30RB01","35CV06","35CR05","35CR06","35CR07","35CR08","35CR09","35ER017","35BN06","35CV03","35CV04","35MH03","35BN05","35FE02","35CV02","35SN02","35CR04","35FE03","35FE04","35FE05","35FE06","35FE07","35SN03","35SN04","35SN05","35SN06","35SN07","35ER018"]; // Lista de IDs de equipos que deseas consultar
 obtenerValorMaximoYColorEquipos(equipoIds);
 
 // Actualizar la vulnerabilidad máxima cada 5 segundos
-setInterval(() => obtenerValorMaximoYColorEquipos(equipoIds), 5000);
+setInterval(() => obtenerValorMaximoYColorEquipos(equipoIds), 10000);
 
 </script>
 
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>30-RB-01</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-30RB01"></div> <!-- Círculo -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>30-CR-01</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-30CR01"></div> <!-- Círculo -->
-            </div>
 
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>30-ER-014</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-30ER014"></div> <!-- Círculo -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-FE-01</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-35FE01"></div> <!-- Círculo -->
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-CV-01</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-35CV01"></div> <!-- Círculo -->
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-SN-01</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-35SN01"></div> <!-- Círculo -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-FE-02</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-35FE02"></div> <!-- Círculo -->
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-CV-02</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo"- id="semaforo-maximo-35CV02"></div> <!-- Círculo -->
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <i class="fas fa-long-arrow-alt-right fa-2x"></i>
-            </div>
-            <div class="col-md-2 text-center">
-                <i class="fas fa-industry fa-3x icono-maquina"></i>
-                <span>35-SN-02</span>
-            </div>
-            <div class="col-md-1 text-center mt-3">
-                <div class="circulo" id="semaforo-maximo-35SN02"></div> <!-- Círculo -->
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-30RB01"></i> 30RB001</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-30CR01"></i>30CR001</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-left"></i> <i class="fas fa-industry icono-maquina" id="semaforo-maximo-30ER014"></i>30ER014</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE01"></i>35-FE-01 <i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV01"></i>35-CV-01 <i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN01"></i>35-SN-01 <i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR03"></i>35-CR-03 </div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35BN04"></i>35-BN-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-left"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-dash"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-dash"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-dash"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35MH04"></i>35-MH-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-left"></i></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV05"></i>35-CV-05</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-up"></i></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE08"></i>35-FE-08</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE09"></i>35-FE-09</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE10"></i>35-FE-10</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE11"></i>35-FE-11</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE12"></i>35-FE-12</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-up"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV06"></i>35-CV-06</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR05"></i>35-CR-05</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR06"></i>35-CR-06</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR07"></i>35-CR-07</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR08"></i>35-CR-08</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR09"></i>35-CR-09</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-left"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-left"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-left"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-left"></i></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35ER017"></i>35-ER-017</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35BN06"></i>35-BN-06</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV03"></i>35-CV-03</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV04"></i>35-CV-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35MH03"></i>35-MH-03</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-up"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-long-arrow-alt-down"></i></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35BN05"></i>35-BN-05</div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE02"></i>35-FE-02<i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CV02"></i>35-CV-02<i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN02"></i>35-SN-02<i class="fas fa-long-arrow-alt-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35CR04"></i>35-CR-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-up"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-down"></i></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE03"></i>35-FE-03</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE04"></i>35-FE-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE05"></i>35-FE-05</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE06"></i>35-FE-06</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35FE07"></i>35-FE-07</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN03"></i>35-SN-03</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN04"></i>35-SN-04</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN05"></i>35-SN-05</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN06"></i>35-SN-06</div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35SN07"></i>35-SN-07</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="fas fa-industry icono-maquina" id="semaforo-maximo-35ER018"></i>35-ER-018</div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-return-right"></i></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-bar-up"></i></div>
+    <div class="col-md-1 text-center mt-3">|</div>
+</div>
+<div class="row">
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"></div>
+    <div class="col-md-1 text-center mt-3"><i class="bi bi-arrow-down"></i></div>
+</div>
+ 
 
 
 {% endblock %}
