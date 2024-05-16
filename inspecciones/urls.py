@@ -16,6 +16,7 @@ from .views.reportes_views import (reporte_probabilidades_semana,valor_maximo_vu
 from .views.utils import (sin_permisos)
 
 urlpatterns=[
+    path('',inspeccion_list,name='home'),
     path('elementos/create/<int:elemento_id>',elemento_create,name='elemento_create'),
     path('elementos/create',elemento_create_base,name='elemento_create'),
     path('elementos/update/<int:elemento_id>',elemento_update,name='elemento_update'),
