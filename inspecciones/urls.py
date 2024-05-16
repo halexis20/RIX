@@ -1,8 +1,19 @@
 from django.urls import path
-from .views import elemento_list,elemento_create_base,elemento_create,elemento_update,elemento_delete,equipo_create,equipo_update,equipo_delete,vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete,inspector_list,inspector_create,inspector_update,inspector_delete,mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete,inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones,custom_logout,sin_permisos,componente_create,componente_delete,componente_update,fuentedevulnerabilidad_create,fuentedevulnerabilidad_list,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete,componente_list,reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo,user_create,user_list,user_update,user_desactivate
 from django.contrib.auth.views import LoginView,LogoutView
 from django.conf.urls import handler404
 from django.shortcuts import render
+
+from .views.user_views import (custom_logout,user_list,user_create,user_update,user_desactivate)
+from .views.elemento_views import (elemento_list,elemento_create,elemento_create_base,elemento_update,elemento_delete)
+from .views.equipo_views import (equipo_create,equipo_update,equipo_delete)
+from .views.componente_views import (componente_list,componente_create,componente_update,componente_delete)
+from .views.inspector_views import (inspector_list, inspector_create, inspector_update, inspector_delete)
+from .views.vulnerabilidad_views import (vulnerabilidad_list,vulnerabilidad_create,vulnerabilidad_update,vulnerabilidad_delete)
+from .views.fuentedevulnerabilidad_views import (fuentedevulnerabilidad_list,fuentedevulnerabilidad_create,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete)
+from .views.mododefalla_views import (mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete)
+from .views.inspeccion_views import (inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones)
+from .views.reportes_views import (reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo)
+from .views.utils import (sin_permisos)
 
 urlpatterns=[
     path('elemento/<int:elemento_id>/create',elemento_create,name='elemento_create'),
