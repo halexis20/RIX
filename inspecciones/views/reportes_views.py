@@ -209,9 +209,8 @@ def get_chart_data(request):
 
     return JsonResponse(chart_data)
 
-import openpyxl
-from openpyxl.styles import Font, Alignment
-from openpyxl.utils import get_column_letter
+import csv
+from django.http import HttpResponse
 
 @login_required
 def generate_report(request):
@@ -235,45 +234,35 @@ def generate_report(request):
 
     inspecciones = Inspeccion.objects.filter(filters)
 
-    # Crear el libro de Excel
-    workbook = openpyxl.Workbook()
-    sheet = workbook.active
-    sheet.title = "Reporte de Inspecciones"
+    # Crear el archivo CSV
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="reporte_inspecciones.xls"'
 
-    # Encabezados de las columnas
-    headers = ['Folio','Fuente de Vulnerabilidad', 'Fecha', 'Ruta Base','Equipo','Componente','Notificacion','Work Order','Probabilidad', 'Condición', 'Recomendación', 'Fecha Planeada', 'Comentario','Realizado']
-    for col_num, header in enumerate(headers, 1):
-        cell = sheet.cell(row=1, column=col_num, value=header)
-        cell.font = Font(bold=True)
-        cell.alignment = Alignment(horizontal='center', vertical='center')
-
-    # Ajustar el ancho de las columnas
-    for col_num in range(1, len(headers) + 1):
-        col_letter = get_column_letter(col_num)
-        sheet.column_dimensions[col_letter].width = 20
-
-    # Agregar los datos de inspecciones
-    for row_num, inspeccion in enumerate(inspecciones, 2):
-        sheet.cell(row=row_num, column=1, value=inspeccion.id)
-        sheet.cell(row=row_num,column=2,value=inspeccion.fuentedevulnerabilidad.nombre)
-        sheet.cell(row=row_num, column=3, value=inspeccion.fecha.strftime('%Y-%m-%d %H:%M:%S'))
-        sheet.cell(row=row_num, column=4, value=inspeccion.componente.equipo.short_name)
-        sheet.cell(row=row_num, column=5, value=inspeccion.componente.equipo.nombre)
-        sheet.cell(row=row_num, column=6, value=inspeccion.componente.nombre)
-        sheet.cell(row=row_num, column=7, value=inspeccion.notificacion)
-        sheet.cell(row=row_num, column=8, value=inspeccion.aviso)
-        sheet.cell(row=row_num, column=9, value=inspeccion.vulnerabilidad.nombre)
-        sheet.cell(row=row_num,column=10,value=inspeccion.observacion)
-        sheet.cell(row=row_num,column=11,value=inspeccion.recomendacion)
-        sheet.cell(row=row_num,column=12,value=inspeccion.fechaplaneada.strftime('%Y-%m-%d') if inspeccion.fechaplaneada!=None else '')
-        sheet.cell(row=row_num,column=13,value=inspeccion.comentarios)
-        sheet.cell(row=row_num,column=14,value=inspeccion.realizado)
-
-
-
-    # Guardar el libro de Excel en un buffer
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename="reporte_inspecciones.xlsx"'
-    workbook.save(response)
+    # Crear el escritor CSV
+    writer = csv.writer(response, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     
+    # Escribir los encabezados de las columnas
+    headers = ['Folio', 'Fuente de Vulnerabilidad', 'Fecha', 'Ruta Base', 'Equipo', 'Componente', 'Notificacion', 'Work Order', 'Probabilidad', 'Condición', 'Recomendación', 'Fecha Planeada', 'Comentario', 'Realizado']
+    writer.writerow(headers)
+
+    # Escribir los datos de las inspecciones
+    for inspeccion in inspecciones:
+        row = [
+            inspeccion.id,
+            inspeccion.fuentedevulnerabilidad.nombre,
+            inspeccion.fecha.strftime('%Y-%m-%d %H:%M:%S'),
+            inspeccion.componente.equipo.short_name,
+            inspeccion.componente.equipo.nombre,
+            inspeccion.componente.nombre,
+            inspeccion.notificacion,
+            inspeccion.aviso,
+            inspeccion.vulnerabilidad.nombre,
+            inspeccion.observacion,
+            inspeccion.recomendacion,
+            inspeccion.fechaplaneada.strftime('%Y-%m-%d') if inspeccion.fechaplaneada else '',
+            inspeccion.comentarios,
+            inspeccion.realizado
+        ]
+        writer.writerow(row)
+
     return response
