@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block elemento %} Dashboard {% endblock %}
+
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <div class="container">
+        <h2>Tendencias de Inspecciones y Probabilidades</h2>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "{% url 'dashboard-data' %}",
+                success: function(data) {
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Tendencias de Inspecciones y Probabilidades'
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block contenidoextendido %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Reporte Personalizado</h6>
+    </div>
+    <div class="card-body">
+        <form method="get" action="{% url 'generate_report' %}">
+            <div class="form-group">
+                <label for="inspector">Equipo:</label>
+                <select class="form-control select2" id="equipo" name="equipo">
+                    <option value="">Todos</option>
+                    {% for equipo in equipos %}
+                        <option value="{{ equipo.id }}">{{ equipo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Fecha de Inicio:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date">
+            </div>
+            <div class="form-group">
+                <label for="end_date">Fecha de Fin:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date">
+            </div>
+            <div class="form-group">
+                <label for="inspector">Inspector:</label>
+                <select class="form-control" id="inspector" name="inspector">
+                    <option value="">Todos</option>
+                    {% for inspector in inspectores %}
+                        <option value="{{ inspector.id }}">{{ inspector.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="vulnerabilidad">Probabilidad:</label>
+                <select class="form-control" id="vulnerabilidad" name="vulnerabilidad">
+                    <option value="">Todas</option>
+                    {% for vulnerabilidad in vulnerabilidades %}
+                        <option value="{{ vulnerabilidad.id }}">{{ vulnerabilidad.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Generar Reporte</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scriptscustom %}
+<!-- Incluir Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Incluir jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Incluir Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.select2').select2();
+    });
+    </script>
+{% endblock %}

@@ -12,7 +12,7 @@ from .views.vulnerabilidad_views import (vulnerabilidad_list,vulnerabilidad_crea
 from .views.fuentedevulnerabilidad_views import (fuentedevulnerabilidad_list,fuentedevulnerabilidad_create,fuentedevulnerabilidad_update,fuentedevulnerabilidad_delete)
 from .views.mododefalla_views import (mododefalla_list,mododefalla_create,mododefalla_update,mododefalla_delete)
 from .views.inspeccion_views import (inspeccion_list,inspeccion_create,inspeccion_update,inspeccion_delete,inspeccion_pdf,ultimas_inspecciones)
-from .views.reportes_views import (reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo)
+from .views.reportes_views import (reporte_probabilidades_semana,valor_maximo_vulnerabilidad,valores_maximos_vulnerabilidad_equipo,dashboard_view,get_chart_data,generate_report)
 from .views.utils import (sin_permisos)
 
 urlpatterns=[
@@ -54,11 +54,14 @@ urlpatterns=[
     path('fuentesdevulnerabilidad/update/<int:fuentedevulnerabilidad_id>',fuentedevulnerabilidad_update,name='fuentedevulnerabilidad_update'),
     path('fuentesdevulnerabilidad/delete/<int:fuentedevulnerabilidad_id>',fuentedevulnerabilidad_delete,name='fuentedevulnerabilidad_delete'),
     path('componentes',componente_list,name='componente_list'),
-    path('mapasemanal',reporte_probabilidades_semana,name='reporte_probabilidades_semana'),
-    path('diagramaplanta',valor_maximo_vulnerabilidad,name='diagramaplanta'),
+    path('reportes/mapasemanal',reporte_probabilidades_semana,name='reporte_probabilidades_semana'),
+    path('reportes/diagramaplanta',valor_maximo_vulnerabilidad,name='diagramaplanta'),
     path('probabilidadxequipoxactual',valores_maximos_vulnerabilidad_equipo,name='vulnerabilidadmaxima'),
     path('usuarios/create',user_create,name='usuario_create'),
     path('usuarios',user_list,name='usuario_list'),
     path('usuarios/update/<int:user_id>',user_update,name='usuario_update'),
-    path('usuarios/desactivate/<int:user_id>',user_desactivate,name='usuario_desactivate')
+    path('usuarios/desactivate/<int:user_id>',user_desactivate,name='usuario_desactivate'),
+    path('dashboard/', dashboard_view, name='dashboard'),
+    path('dashboard/data/', get_chart_data, name='dashboard-data'),
+    path('dashboard/generate_report/', generate_report, name='generate_report'),
 ]
